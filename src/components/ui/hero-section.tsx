@@ -51,11 +51,11 @@ export const HeroSection = ({
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-6">
-          {subtitle && (
-            <div className="text-primary-light font-medium tracking-wide uppercase text-sm">
-              {subtitle}
-            </div>
-          )}
+         {subtitle && (
+  <div className="text-white font-medium tracking-wide uppercase text-sm">
+    {subtitle}
+  </div>
+)}
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
             {title}
