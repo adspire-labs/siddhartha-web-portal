@@ -69,7 +69,7 @@ export function NoticeOverlay() {
                 
                 <div className="space-y-3 text-sm text-muted-foreground text-left">
                   <p className="font-medium text-foreground">
-                    📚 Admission Open for Academic Year 2025
+                    Admission Open for Academic Year 2025
                   </p>
                   <p>
                     • Grade XI (Science & Management) - Limited Seats
@@ -78,7 +78,7 @@ export function NoticeOverlay() {
                     • Early Childhood to Grade X - Now Accepting Applications
                   </p>
                   <p className="text-primary font-medium">
-                    ⏰ Registration Deadline: March 15, 2025
+                    Registration Deadline: March 15, 2025
                   </p>
                 </div>
                 

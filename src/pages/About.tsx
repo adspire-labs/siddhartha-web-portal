@@ -165,75 +165,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Leadership Messages */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <Card className="p-8 shadow-elegant relative">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-2">Messages from Leadership</h2>
-              </div>
-              
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                {/* Circular image */}
-                <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-lg">
-                  <img 
-                    src={leadershipMessages[currentMessageIndex].image} 
-                    alt={leadershipMessages[currentMessageIndex].name} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                
-                <div className="text-center md:text-left flex-1">
-                  <h3 className="text-2xl font-bold">{leadershipMessages[currentMessageIndex].name}</h3>
-                  <p className="text-primary font-semibold mb-4">{leadershipMessages[currentMessageIndex].role}</p>
-                  <div className="prose prose-lg text-muted-foreground">
-                    <p className="leading-relaxed italic">
-                      "{leadershipMessages[currentMessageIndex].message}"
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Navigation */}
-              <div className="flex justify-center mt-8">
-                <div className="flex items-center gap-4">
-                  <button 
-                    onClick={prevMessage}
-                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    aria-label="Previous message"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                  
-                  <div className="flex space-x-2">
-                    {leadershipMessages.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentMessageIndex(index)}
-                        className={`w-3 h-3 rounded-full ${
-                          index === currentMessageIndex 
-                            ? 'bg-primary' 
-                            : 'bg-gray-300'
-                        }`}
-                        aria-label={`Go to message ${index + 1}`}
-                      />
-                    ))}
-                  </div>
-                  
-                  <button 
-                    onClick={nextMessage}
-                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
-                    aria-label="Next message"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
+  
 
       {/* Achievements */}
       <section className="py-20">

@@ -130,10 +130,11 @@ export default function Home() {
         </HeroSection>
       </motion.div>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
+      {/* ====================== FIXED STATS SECTION ====================== */}
+      {/* Stats Section - Updated with visibility fix */}
+      <section className="py-16 bg-primary text-white"> {/* Changed text color to white */}
         <div className="container mx-auto px-4">
-          <SlideInUp className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div 
                 key={index} 
@@ -145,12 +146,13 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
-                <div className="text-primary-foreground/80">{stat.label}</div>
+                <div>{stat.label}</div> {/* Removed opacity modifier */}
               </motion.div>
             ))}
-          </SlideInUp>
+          </div>
         </div>
       </section>
+      {/* ====================== END FIXED SECTION ====================== */}
 
       {/* Features Section */}
       <section className="py-20">

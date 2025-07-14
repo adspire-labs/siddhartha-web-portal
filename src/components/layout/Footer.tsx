@@ -13,7 +13,7 @@ export const Footer = () => {
               <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10">
                 <img src={logo} alt="Siddhartha School Logo" className="w-full h-full object-cover" />
               </div>
-              <div className="text-lg font-bold">Siddhartha School</div>
+              <div className="text-lg font-bold">Siddhartha English Boarding Secondary School</div>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed">
               Enter to LEARN, Leave to SERVE. We provide quality education in a peaceful environment 
