@@ -1,4 +1,3 @@
-import { useState } from 'react'; // Added useState import
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { HeroSection } from '@/components/ui/hero-section';
@@ -9,9 +8,9 @@ import {
   Award, 
   BookOpen, 
   Heart, 
+  Target,
   CheckCircle,
-  ArrowRight,
-  X // Added X icon for closing modal
+  ArrowRight
 } from 'lucide-react';
 import heroImage from '@/assets/hero-students.jpg';
 import schoolBuilding from '@/assets/school-building.jpg';
@@ -68,9 +67,6 @@ const programs = [
 ];
 
 export default function Home() {
-  // State to control video modal visibility
-  const [showVideo, setShowVideo] = useState(false);
-
   return (
     <div className="pt-16">
       {/* Hero Section */}
@@ -86,42 +82,12 @@ export default function Home() {
             <BookOpen className="w-5 h-5 mr-2" />
             Explore Programs
           </Button>
-          {/* Updated Visit Campus Button */}
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="bg-white/10 border-white/30 text-white hover:bg-white/20"
-            onClick={() => setShowVideo(true)}
-          >
+          <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
             <Users className="w-5 h-5 mr-2" />
             Visit Campus
           </Button>
         </div>
       </HeroSection>
-
-      {/* YouTube Video Modal */}
-      {showVideo && (
-        <div className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
-          <div className="relative w-full max-w-4xl">
-            <button
-              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors"
-              onClick={() => setShowVideo(false)}
-            >
-              <X className="w-8 h-8" />
-            </button>
-            
-            <div className="aspect-video rounded-lg overflow-hidden">
-              <iframe
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
-                title="Siddhartha School Campus Tour"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Stats Section */}
       <section className="py-16 bg-primary text-primary-foreground">
