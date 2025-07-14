@@ -45,24 +45,29 @@ export const HeroSection = ({
     >
       {/* Background Overlay */}
       {overlay && (
-        <div className="absolute inset-0 overlay-gradient opacity-90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-indigo-900/85 to-blue-900/80" />
       )}
+      
+      {/* Subtle texture */}
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.2)_1px,transparent_1px)] bg-[length:20px_20px]" />
       
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-6">
           {subtitle && (
-            <div className="text-white/90 font-medium tracking-wide uppercase text-sm">
-              {subtitle}
+            <div className="inline-block px-5 py-2 bg-white/10 backdrop-blur-sm rounded-full">
+              <span className="text-white/90 font-medium tracking-wider uppercase text-sm md:text-base drop-shadow-sm">
+                {subtitle}
+              </span>
             </div>
           )}
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight drop-shadow-lg">
             {title}
           </h1>
           
           {description && (
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed font-light">
               {description}
             </p>
           )}
@@ -75,10 +80,13 @@ export const HeroSection = ({
         </div>
       </div>
       
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full p-1">
-          <div className="w-1 h-3 bg-white/70 rounded-full mx-auto animate-pulse" />
+      {/* Enhanced Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="flex flex-col items-center animate-bounce">
+          <div className="w-8 h-12 rounded-full border-2 border-white/40 flex items-start justify-center p-2">
+            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+          </div>
+          <span className="mt-1 text-xs text-white/80 font-medium tracking-wide">Scroll</span>
         </div>
       </div>
     </section>

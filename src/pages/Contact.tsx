@@ -236,26 +236,45 @@ export default function Contact() {
 
       {/* Map Section */}
       <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Find Us</h2>
-            <p className="text-muted-foreground">
-              Located in the heart of Tilottama, easily accessible by public transport.
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Located in the heart of Tilottama, easily accessible by public transport. 
+              Visit our campus at Siddhartha English Boarding Secondary School.
             </p>
           </div>
 
           <Card className="overflow-hidden shadow-elegant">
-            <div className="aspect-video bg-muted flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 mx-auto mb-4 text-primary" />
-                <h3 className="text-xl font-semibold mb-2">Interactive Map</h3>
-                <p className="text-muted-foreground">
-                  Tilottama-4, Rupandehi, Nepal
-                </p>
-                <Button variant="outline" className="mt-4">
-                  Open in Google Maps
+            <div className="aspect-video relative">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28265.03309337248!2d83.45026558706972!3d27.682403353137058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39968539523547f1%3A0xea3dfdf0a47c8f8c!2sSiddhartha%20English%20Boarding%20Secondary%20School%2C%20Tilottama%20-%204%2C%20Rupandehi!5e0!3m2!1sen!2snp!4v1752491932336!5m2!1sen!2snp" 
+                className="w-full h-full"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+              <div className="absolute bottom-4 right-4">
+                <Button 
+                  variant="outline" 
+                  className="bg-white/90 hover:bg-white shadow-md"
+                  asChild
+                >
+                  <a 
+                    href="https://maps.google.com/?q=Siddhartha+English+Boarding+Secondary+School,+Tilottama-4,+Rupandehi" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    Open in Google Maps
+                  </a>
                 </Button>
               </div>
+            </div>
+            <div className="p-4 bg-white text-center">
+              <p className="text-sm text-muted-foreground">
+                Tilottama-4, Rupandehi, Nepal
+              </p>
             </div>
           </Card>
         </div>
