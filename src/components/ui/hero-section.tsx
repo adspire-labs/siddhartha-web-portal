@@ -52,7 +52,7 @@ export const HeroSection = ({
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto space-y-6">
           {subtitle && (
-            <div className="text-primary-light font-medium tracking-wide uppercase text-sm">
+            <div className="text-white/90 font-medium tracking-wide uppercase text-sm">
               {subtitle}
             </div>
           )}

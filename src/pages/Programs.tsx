@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,11 @@ import {
   Microscope,
   Calculator,
   Globe,
-  Award
+  Award,
+  Beaker,
+  BarChart3,
+  Star,
+  Trophy
 } from 'lucide-react';
 import heroImage from '@/assets/hero-students.jpg';
 
@@ -201,31 +206,165 @@ const higherSecondaryStreams = [
 ];
 
 export default function Programs() {
+  useEffect(() => {
+    // SEO optimization
+    document.title = 'Academic Streams & Programs - Siddhartha School Butwal | Science & Management +2';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Explore our comprehensive education programs from Early Childhood to Grade XII. Science and Management streams available for +2 level. Best school in Butwal for quality education and academic excellence.');
+    }
+  }, []);
+
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <HeroSection
-        subtitle="Our Educational Programs"
-        title="Nurturing Young Minds at Every Stage"
-        description="Comprehensive education programs designed to provide excellent learning experiences from early childhood through secondary education."
-        backgroundImage={heroImage}
-        height="md"
-      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <HeroSection
+          subtitle="Academic Streams & Programs"
+          title="Complete Educational Journey from Childhood to +2"
+          description="Comprehensive education programs from Early Childhood to Grade XII, including specialized Science and Management streams for higher secondary level. Quality education in Butwal, Nepal."
+          backgroundImage={heroImage}
+          height="md"
+        />
+      </motion.div>
 
-      {/* Programs Overview */}
+      {/* Higher Secondary Streams - Featured Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Higher Secondary Streams (+2 Level)</h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto">
+              Specialized Science and Management streams for Grade XI & XII preparing students for medical, engineering, business, and other professional careers.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            {higherSecondaryStreams.map((stream, index) => (
+              <motion.div
+                key={stream.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+              >
+                <Card className="p-8 shadow-elegant hover:shadow-glow transition-all duration-300 h-full border-0">
+                  <div className="flex items-center space-x-4 mb-6">
+                    <motion.div 
+                      className="w-16 h-16 rounded-full hero-gradient flex items-center justify-center"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <stream.icon className="w-8 h-8 text-white" />
+                    </motion.div>
+                    <div>
+                      <h3 className="text-2xl font-bold">{stream.title}</h3>
+                      <div className="text-primary font-medium">{stream.subtitle}</div>
+                      <div className="text-sm text-muted-foreground">{stream.examBoard}</div>
+                    </div>
+                  </div>
+
+                  <p className="text-muted-foreground mb-6 leading-relaxed">{stream.description}</p>
+
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="flex items-center space-x-3">
+                      <Clock className="w-5 h-5 text-primary" />
+                      <div>
+                        <div className="font-medium text-sm">Duration</div>
+                        <div className="text-muted-foreground text-sm">{stream.duration}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Users className="w-5 h-5 text-primary" />
+                      <div>
+                        <div className="font-medium text-sm">Class Size</div>
+                        <div className="text-muted-foreground text-sm">{stream.capacity}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-3 flex items-center">
+                        <BookOpen className="w-4 h-4 mr-2 text-primary" />
+                        Core Subjects
+                      </h4>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {stream.compulsorySubjects.map((subject, idx) => (
+                          <span key={idx} className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
+                            {subject}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold mb-3 flex items-center">
+                        <Target className="w-4 h-4 mr-2 text-secondary" />
+                        Career Opportunities
+                      </h4>
+                      <div className="space-y-2">
+                        {stream.careerOpportunities.slice(0, 3).map((career, idx) => (
+                          <div key={idx} className="flex items-center space-x-2">
+                            <Star className="w-3 h-3 text-yellow-500 flex-shrink-0" />
+                            <span className="text-sm text-muted-foreground">{career}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t">
+                    <Link to="/contact">
+                      <Button className="w-full shadow-card">
+                        Apply for {stream.title}
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Basic Education Programs */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Complete Educational Journey</h2>
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Foundation Education Programs</h2>
             <p className="text-muted-foreground max-w-3xl mx-auto">
-              From the first steps in learning to preparation for higher education, our programs are designed 
-              to support students at every stage of their academic journey with age-appropriate curriculum and methodologies.
+              Building strong educational foundations from early childhood through secondary level with comprehensive curriculum and expert teaching.
             </p>
-          </div>
+          </motion.div>
 
           <div className="space-y-20">
             {educationLevels.map((program, index) => (
-              <div key={program.id} className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-start ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+              <motion.div 
+                key={program.id} 
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-start ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 {/* Program Details */}
                 <div className={index % 2 === 1 ? 'lg:col-start-2' : ''}>
                   <div className="flex items-center space-x-4 mb-6">
@@ -308,7 +447,7 @@ export default function Programs() {
                     </div>
                   </Card>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

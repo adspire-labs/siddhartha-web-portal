@@ -1,6 +1,12 @@
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { HeroSection } from '@/components/ui/hero-section';
+import { LoadingScreen } from '@/components/ui/loading-screen';
+import { NoticeOverlay } from '@/components/ui/notice-overlay';
+import { LeadershipSlider } from '@/components/ui/leadership-slider';
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { Link } from 'react-router-dom';
 import { 
   GraduationCap, 
@@ -10,7 +16,11 @@ import {
   Heart, 
   Target,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  Star,
+  Globe,
+  Lightbulb,
+  Trophy
 } from 'lucide-react';
 import heroImage from '@/assets/hero-students.jpg';
 import schoolBuilding from '@/assets/school-building.jpg';
@@ -67,16 +77,46 @@ const programs = [
 ];
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { MotionDiv: FadeInDiv } = useScrollAnimation('fade');
+  const { MotionDiv: SlideInLeft } = useScrollAnimation('left');
+  const { MotionDiv: SlideInRight } = useScrollAnimation('right');
+  const { MotionDiv: SlideInUp } = useScrollAnimation('up');
+
+  useEffect(() => {
+    // Set page title and meta description for SEO
+    document.title = 'Siddhartha School - Best School in Butwal | Quality Education in Nepal';
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Top-rated school in Butwal, Nepal offering quality education from Early Childhood to Grade XII. Science and Management streams available. Join the best school for academic excellence and holistic development.');
+    }
+  }, []);
+
+  if (isLoading) {
+    return (
+      <AnimatePresence>
+        <LoadingScreen onComplete={() => setIsLoading(false)} />
+      </AnimatePresence>
+    );
+  }
+
   return (
-    <div className="pt-16">
+    <>
+      <NoticeOverlay />
+      <div className="pt-16">
       {/* Hero Section */}
-      <HeroSection
-        subtitle="Welcome to Siddhartha School"
-        title="Learn and Achieve in Peaceful Environment"
-        description="Enter to LEARN, Leave to SERVE. We provide quality education that prepares students for a bright future with strong moral values and academic excellence."
-        backgroundImage={heroImage}
-        height="xl"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
+        <HeroSection
+          subtitle="Welcome to Siddhartha School"
+          title="Learn and Achieve in Peaceful Environment"
+          description="Enter to LEARN, Leave to SERVE. We provide quality education that prepares students for a bright future with strong moral values and academic excellence."
+          backgroundImage={heroImage}
+          height="xl"
+        >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button size="lg" className="shadow-glow">
             <BookOpen className="w-5 h-5 mr-2" />
@@ -87,41 +127,63 @@ export default function Home() {
             Visit Campus
           </Button>
         </div>
-      </HeroSection>
+        </HeroSection>
+      </motion.div>
 
       {/* Stats Section */}
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <SlideInUp className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+              <motion.div 
+                key={index} 
+                className="text-center"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+              >
                 <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
                 <div className="text-primary-foreground/80">{stat.label}</div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </SlideInUp>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <FadeInDiv className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Siddhartha School?</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We are committed to providing the best educational experience with a focus on academic excellence and character development.
+              We are committed to providing the best educational experience with a focus on academic excellence and character development in Butwal, Nepal.
             </p>
-          </div>
+          </FadeInDiv>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="p-6 text-center shadow-card hover:shadow-elegant transition-smooth">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full hero-gradient flex items-center justify-center">
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground text-sm">{feature.description}</p>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+              >
+                <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-smooth h-full">
+                  <motion.div 
+                    className="w-16 h-16 mx-auto mb-4 rounded-full hero-gradient flex items-center justify-center"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <feature.icon className="w-8 h-8 text-white" />
+                  </motion.div>
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -239,6 +301,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Leadership Messages Section */}
+      <LeadershipSlider />
     </div>
+    </>
   );
 }

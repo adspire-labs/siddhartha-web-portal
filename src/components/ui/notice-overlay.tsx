@@ -1,146 +1,103 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Bell, Calendar, AlertCircle } from 'lucide-react';
-import { Button } from './button';
-import { Card } from './card';
+import { X, Bell } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 
-interface Notice {
-  id: string;
-  title: string;
-  content: string;
-  type: 'important' | 'general' | 'urgent';
-  date: string;
-}
+export function NoticeOverlay() {
+  const [isVisible, setIsVisible] = useState(false);
 
-interface NoticeOverlayProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+  useEffect(() => {
+    // Show notice overlay after a short delay
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 2000);
 
-// This would normally come from an API or CMS
-const notices: Notice[] = [
-  {
-    id: '1',
-    title: 'Annual Sports Day 2024',
-    content: 'Join us for our Annual Sports Day on March 15th, 2024. All students and parents are invited to participate in this exciting event.',
-    type: 'important',
-    date: '2024-03-01'
-  },
-  {
-    id: '2',
-    title: 'Admission Open for Session 2024-25',
-    content: 'Admissions are now open for the academic session 2024-25. Limited seats available. Apply now!',
-    type: 'urgent',
-    date: '2024-02-15'
-  },
-  {
-    id: '3',
-    title: 'Parent-Teacher Meeting',
-    content: 'Parent-Teacher meeting scheduled for March 8th, 2024. Please check your ward\'s performance and discuss future plans.',
-    type: 'general',
-    date: '2024-02-28'
-  }
-];
+    return () => clearTimeout(timer);
+  }, []);
 
-export function NoticeOverlay({ isOpen, onClose }: NoticeOverlayProps) {
-  const getNoticeIcon = (type: Notice['type']) => {
-    switch (type) {
-      case 'urgent':
-        return <AlertCircle className="w-5 h-5 text-red-500" />;
-      case 'important':
-        return <Bell className="w-5 h-5 text-orange-500" />;
-      default:
-        return <Calendar className="w-5 h-5 text-blue-500" />;
-    }
-  };
-
-  const getNoticeBorder = (type: Notice['type']) => {
-    switch (type) {
-      case 'urgent':
-        return 'border-l-4 border-red-500';
-      case 'important':
-        return 'border-l-4 border-orange-500';
-      default:
-        return 'border-l-4 border-blue-500';
-    }
+  const handleClose = () => {
+    setIsVisible(false);
   };
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isVisible && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
         >
-          {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-          />
-
-          {/* Notice Modal */}
-          <motion.div
-            className="relative w-full max-w-2xl max-h-[80vh] overflow-y-auto"
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="relative max-w-md w-full"
           >
-            <Card className="p-6 shadow-2xl">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 rounded-full hero-gradient flex items-center justify-center">
-                    <Bell className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold">Important Notice</h2>
-                    <p className="text-muted-foreground text-sm">Stay updated with latest announcements</p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onClose}
-                  className="rounded-full"
+            <Card className="p-6 bg-white shadow-elegant border-0">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute top-2 right-2 h-8 w-8 p-0 hover:bg-muted"
+                onClick={handleClose}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+              
+              <div className="text-center">
+                <motion.div
+                  className="w-16 h-16 mx-auto mb-4 hero-gradient rounded-full flex items-center justify-center"
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
                 >
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-
-              <div className="space-y-4">
-                {notices.map((notice, index) => (
-                  <motion.div
-                    key={notice.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                  <Bell className="w-8 h-8 text-white" />
+                </motion.div>
+                
+                <h3 className="text-xl font-bold text-primary mb-3">
+                  Important Notice
+                </h3>
+                
+                <div className="space-y-3 text-sm text-muted-foreground text-left">
+                  <p className="font-medium text-foreground">
+                    📚 Admission Open for Academic Year 2025
+                  </p>
+                  <p>
+                    • Grade XI (Science & Management) - Limited Seats
+                  </p>
+                  <p>
+                    • Early Childhood to Grade X - Now Accepting Applications
+                  </p>
+                  <p className="text-primary font-medium">
+                    ⏰ Registration Deadline: March 15, 2025
+                  </p>
+                </div>
+                
+                <div className="mt-6 space-y-2">
+                  <Button 
+                    className="w-full shadow-glow"
+                    onClick={handleClose}
                   >
-                    <Card className={`p-4 ${getNoticeBorder(notice.type)} hover:shadow-md transition-shadow`}>
-                      <div className="flex items-start space-x-3">
-                        {getNoticeIcon(notice.type)}
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg mb-1">{notice.title}</h3>
-                          <p className="text-muted-foreground text-sm mb-2">{notice.content}</p>
-                          <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                            <Calendar className="w-3 h-3" />
-                            <span>{new Date(notice.date).toLocaleDateString()}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className="mt-6 text-center">
-                <Button onClick={onClose} className="shadow-card">
-                  Close Notice
-                </Button>
+                    Learn More About Admission
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="w-full"
+                    onClick={handleClose}
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
             </Card>
           </motion.div>
