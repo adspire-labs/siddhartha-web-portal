@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { HeroSection } from '@/components/ui/hero-section';
-import { Users, Target, Heart, Award, CheckCircle } from 'lucide-react';
+import { Users, Target, Heart, Award, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import schoolBuilding from '@/assets/school-building.jpg';
+
+// Replace these with your actual image imports
+// Example placeholder URLs
+const principalImage = "https://via.placeholder.com/300";
+const chairmanImage = "https://via.placeholder.com/300";
+const mdImage = "https://via.placeholder.com/300";
 
 const values = [
   {
@@ -35,7 +42,42 @@ const achievements = [
   'Strong alumni network'
 ];
 
+const leadershipMessages = [
+  {
+    name: "Yam Bahadur Rana",
+    role: "Principal",
+    image: principalImage,
+    message: "Education, in today's context, carries different meaning than the yesteryear. It has much wider scope now. In this age of globalization, education must be of international level. It shouldn't be confined to the text books or just excelling in the examinations, rather it should help in the overall development of a student. Keeping this fact in mind, it has been striving for value based quality education. It is the assiduous endeavor of the management and staffs for more than two and a half decade that has raised SIDDHARTHA to this height."
+  },
+  {
+    name: "Chairman Name",
+    role: "Chairman",
+    image: chairmanImage,
+    message: "As Chairman, my vision for Siddhartha School is to create an environment where students not only excel academically but also develop strong character and leadership skills. We believe in nurturing well-rounded individuals who will make meaningful contributions to society. Our commitment to quality education and holistic development remains unwavering."
+  },
+  {
+    name: "Managing Director",
+    role: "MD",
+    image: mdImage,
+    message: "Our focus at Siddhartha School has always been on creating innovative learning experiences that prepare students for the challenges of tomorrow. We continuously invest in modern facilities and professional development for our staff to ensure we deliver on our promise of excellence. Education is the foundation upon which we build our future leaders."
+  }
+];
+
 export default function About() {
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  const nextMessage = () => {
+    setCurrentMessageIndex((prev) => 
+      prev === leadershipMessages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevMessage = () => {
+    setCurrentMessageIndex((prev) => 
+      prev === 0 ? leadershipMessages.length - 1 : prev - 1
+    );
+  };
+
   return (
     <div className="pt-16">
       {/* Hero Section */}
@@ -123,30 +165,70 @@ export default function About() {
         </div>
       </section>
 
-      {/* Principal's Message */}
+      {/* Leadership Messages */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <Card className="p-8 shadow-elegant">
+            <Card className="p-8 shadow-elegant relative">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-2">Message from the Principal</h2>
-                <div className="text-primary font-semibold">Yam Bahadur Rana</div>
-                <div className="text-muted-foreground">Principal</div>
+                <h2 className="text-3xl font-bold mb-2">Messages from Leadership</h2>
               </div>
               
-              <div className="prose prose-lg mx-auto text-muted-foreground text-center">
-                <p className="text-lg italic mb-6">
-                  "Dear students, parents and teachers,
-                </p>
-                <p className="leading-relaxed">
-                  Education, in today's context, carries different meaning than the yesteryear. 
-                  It has much wider scope now. In this age of globalization, education must be of 
-                  international level. It shouldn't be confined to the text books or just excelling 
-                  in the examinations, rather it should help in the overall development of a student. 
-                  Keeping this fact in mind, it has been striving for value based quality education. 
-                  It is the assiduous endeavor of the management and staffs for more than two and a 
-                  half decade that has raised SIDDHARTHA to this height."
-                </p>
+              <div className="flex flex-col md:flex-row items-center gap-8">
+                {/* Circular image */}
+                <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-white shadow-lg">
+                  <img 
+                    src={leadershipMessages[currentMessageIndex].image} 
+                    alt={leadershipMessages[currentMessageIndex].name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                <div className="text-center md:text-left flex-1">
+                  <h3 className="text-2xl font-bold">{leadershipMessages[currentMessageIndex].name}</h3>
+                  <p className="text-primary font-semibold mb-4">{leadershipMessages[currentMessageIndex].role}</p>
+                  <div className="prose prose-lg text-muted-foreground">
+                    <p className="leading-relaxed italic">
+                      "{leadershipMessages[currentMessageIndex].message}"
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation */}
+              <div className="flex justify-center mt-8">
+                <div className="flex items-center gap-4">
+                  <button 
+                    onClick={prevMessage}
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    aria-label="Previous message"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  
+                  <div className="flex space-x-2">
+                    {leadershipMessages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentMessageIndex(index)}
+                        className={`w-3 h-3 rounded-full ${
+                          index === currentMessageIndex 
+                            ? 'bg-primary' 
+                            : 'bg-gray-300'
+                        }`}
+                        aria-label={`Go to message ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  
+                  <button 
+                    onClick={nextMessage}
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    aria-label="Next message"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                </div>
               </div>
             </Card>
           </div>
