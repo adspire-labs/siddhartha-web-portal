@@ -133,7 +133,7 @@ export default function Home() {
             className="bg-white/10 border-white/30 text-white hover:bg-white/20"
           >
             <Users className="w-5 h-5 mr-2" />
-            Visit Campus
+            Visit School
           </Button>
         </div>
         </HeroSection>
@@ -245,7 +245,7 @@ export default function Home() {
               <div className="rounded-lg overflow-hidden shadow-elegant">
                 <img 
                   src={schoolBuilding} 
-                  alt="Siddhartha School Campus" 
+                  alt="Siddhartha School" 
                   className="w-full h-auto"
                 />
               </div>
@@ -419,7 +419,7 @@ export default function Home() {
               <div className="aspect-video w-full">
                 <iframe
                   src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1"
-                  title="Campus Tour - Siddhartha School"
+                  title="School Tour - Siddhartha School"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="w-full h-full"
@@ -427,9 +427,9 @@ export default function Home() {
               </div>
               
               <div className="p-4 bg-background">
-                <h3 className="text-xl font-bold text-center">Campus Tour</h3>
+                <h3 className="text-xl font-bold text-center">School Tour</h3>
                 <p className="text-muted-foreground text-center mt-2">
-                  Take a virtual tour of our beautiful campus and facilities
+                  Take a virtual tour of our beautiful school and facilities
                 </p>
               </div>
             </motion.div>

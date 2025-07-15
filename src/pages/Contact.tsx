@@ -103,14 +103,7 @@ export default function Contact() {
         backgroundImage={heroImage}
         height="lg"
         overlay="dark"
-      >
-        <div className="max-w-3xl mx-auto text-center mt-8">
-          <Button variant="secondary" size="lg" className="shadow-glow">
-            Schedule a Campus Tour
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
-      </HeroSection>
+      />
 
       {/* Contact Information Cards */}
       <section className="py-16 bg-muted/10">
@@ -138,7 +131,12 @@ export default function Contact() {
                   <h3 className="text-lg font-semibold mb-3">{info.title}</h3>
                   <div className="space-y-2">
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className="text-muted-foreground">{detail}</p>
+                      <p 
+                        key={idx} 
+                        className="text-muted-foreground break-words"
+                      >
+                        {detail}
+                      </p>
                     ))}
                   </div>
                 </Card>
@@ -282,7 +280,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <p className="font-medium text-lg">General Info</p>
-                      <p className="text-muted-foreground">info@siddharthaschool.edu.np</p>
+                      <p className="text-muted-foreground break-all">
+                        info@siddharthaschool.edu.np
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
@@ -323,17 +323,6 @@ export default function Contact() {
                     <Youtube className="w-5 h-5" />
                   </a>
                 </div>
-              </Card>
-
-              {/* Visit Us */}
-              <Card className="p-6 shadow-card">
-                <h3 className="text-xl font-semibold mb-5 pb-3 border-b border-muted">Visit Our Campus</h3>
-                <p className="text-muted-foreground mb-5">
-                  Schedule a campus tour to see our facilities and meet our staff.
-                </p>
-                <Button variant="outline" size="lg" className="w-full border-primary text-primary hover:bg-primary/5">
-                  Schedule a Tour
-                </Button>
               </Card>
             </div>
           </div>
