@@ -20,7 +20,8 @@ import {
   Star,
   Globe,
   Lightbulb,
-  Trophy
+  Trophy,
+  X // Import the X icon for the modal
 } from 'lucide-react';
 import heroImage from '@/assets/hero-students.jpg';
 import schoolBuilding from '@/assets/school-building.jpg';
@@ -78,6 +79,7 @@ const programs = [
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showVideoModal, setShowVideoModal] = useState(false); // State for video modal
   const { MotionDiv: FadeInDiv } = useScrollAnimation('fade');
   const { MotionDiv: SlideInLeft } = useScrollAnimation('left');
   const { MotionDiv: SlideInRight } = useScrollAnimation('right');
@@ -118,11 +120,18 @@ export default function Home() {
           height="xl"
         >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button size="lg" className="shadow-glow">
-            <BookOpen className="w-5 h-5 mr-2" />
-            Explore Programs
-          </Button>
-          <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
+          <Link to="/programs">
+            <Button size="lg" className="shadow-glow">
+              <BookOpen className="w-5 h-5 mr-2" />
+              Explore Programs
+            </Button>
+          </Link>
+          <Button 
+            onClick={() => setShowVideoModal(true)}
+            variant="outline" 
+            size="lg" 
+            className="bg-white/10 border-white/30 text-white hover:bg-white/20"
+          >
             <Users className="w-5 h-5 mr-2" />
             Visit Campus
           </Button>
@@ -132,7 +141,7 @@ export default function Home() {
 
       {/* ====================== FIXED STATS SECTION ====================== */}
       {/* Stats Section - Updated with visibility fix */}
-      <section className="py-16 bg-primary text-white"> {/* Changed text color to white */}
+      <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -146,7 +155,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
-                <div>{stat.label}</div> {/* Removed opacity modifier */}
+                <div>{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -154,42 +163,48 @@ export default function Home() {
       </section>
       {/* ====================== END FIXED SECTION ====================== */}
 
-      {/* Features Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <FadeInDiv className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Siddhartha School?</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We are committed to providing the best educational experience with a focus on academic excellence and character development in Butwal, Nepal.
-            </p>
-          </FadeInDiv>
+      {/* Features Section - Fixed */}
+<section className="py-20">
+  <div className="container mx-auto px-4">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-3xl lg:text-4xl font-bold mb-4">Why Choose Siddhartha School?</h2>
+      <p className="text-muted-foreground max-w-2xl mx-auto">
+        We are committed to providing the best educational experience with a focus on academic excellence and character development in Butwal, Nepal.
+      </p>
+    </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05, rotateY: 5 }}
-              >
-                <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-smooth h-full">
-                  <motion.div 
-                    className="w-16 h-16 mx-auto mb-4 rounded-full hero-gradient flex items-center justify-center"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map((feature, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: index * 0.1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          whileHover={{ scale: 1.05 }}
+        >
+          <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-smooth h-full">
+            <motion.div 
+              className="w-16 h-16 mx-auto mb-4 rounded-full hero-gradient flex items-center justify-center"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6 }}
+            >
+              <feature.icon className="w-8 h-8 text-white" />
+            </motion.div>
+            <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+            <p className="text-muted-foreground text-sm">{feature.description}</p>
+          </Card>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* About Preview Section */}
       <section className="py-20 bg-muted/30">
@@ -244,111 +259,111 @@ export default function Home() {
       </section>
 
       {/* Programs Section */}
-<section className="py-20">
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Academic Streams</h2>
-      <p className="text-muted-foreground max-w-2xl mx-auto">
-        Specialized programs designed to prepare students for their future careers with focused curriculum and practical skills.
-      </p>
-    </div>
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Academic Streams</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Specialized programs designed to prepare students for their future careers with focused curriculum and practical skills.
+            </p>
+          </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      {/* Science Stream Card */}
-      <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
-        <div className="mb-4">
-          <div className="text-sm font-medium text-blue-600 mb-2 flex items-center">
-            <Globe className="w-4 h-4 mr-2" />
-            SCIENCE & TECHNOLOGY
-          </div>
-          <h3 className="text-xl font-bold mb-3">Science Stream</h3>
-          <p className="text-muted-foreground text-sm mb-4">
-            Focused curriculum in Physics, Chemistry, Biology, and Mathematics to prepare students for careers in medicine, engineering, and technology.
-          </p>
-        </div>
-        
-        <div className="space-y-2 mb-6">
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-            <span className="text-sm">Advanced Physics & Chemistry Labs</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-            <span className="text-sm">Mathematics & Computer Science</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-            <span className="text-sm">Research Projects & Science Fairs</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
-            <span className="text-sm">Entrance Exam Preparation</span>
-          </div>
-        </div>
-        
-        <Link to="/programs/science">
-          <Button variant="outline" size="sm" className="w-full">
-            Explore Science Stream
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
-      </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Science Stream Card */}
+            <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
+              <div className="mb-4">
+                <div className="text-sm font-medium text-blue-600 mb-2 flex items-center">
+                  <Globe className="w-4 h-4 mr-2" />
+                  SCIENCE & TECHNOLOGY
+                </div>
+                <h3 className="text-xl font-bold mb-3">Science Stream</h3>
+                <p className="text-muted-foreground text-sm mb-4">
+                  Focused curriculum in Physics, Chemistry, Biology, and Mathematics to prepare students for careers in medicine, engineering, and technology.
+                </p>
+              </div>
+              
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                  <span className="text-sm">Advanced Physics & Chemistry Labs</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                  <span className="text-sm">Mathematics & Computer Science</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                  <span className="text-sm">Research Projects & Science Fairs</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+                  <span className="text-sm">Entrance Exam Preparation</span>
+                </div>
+              </div>
+              
+              <Link to="/programs/science">
+                <Button variant="outline" size="sm" className="w-full">
+                  Explore Science Stream
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </Card>
 
-      {/* Management Stream Card */}
-      <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
-        <div className="mb-4">
-          <div className="text-sm font-medium text-green-600 mb-2 flex items-center">
-            <Lightbulb className="w-4 h-4 mr-2" />
-            BUSINESS & COMMERCE
+            {/* Management Stream Card */}
+            <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
+              <div className="mb-4">
+                <div className="text-sm font-medium text-green-600 mb-2 flex items-center">
+                  <Lightbulb className="w-4 h-4 mr-2" />
+                  BUSINESS & COMMERCE
+                </div>
+                <h3 className="text-xl font-bold mb-3">Management Stream</h3>
+                <p className="text-muted-foreground text-sm mb-4">
+                  Comprehensive program in Business Studies, Accountancy, and Economics to develop future leaders in business and finance.
+                </p>
+              </div>
+              
+              <div className="space-y-2 mb-6">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <span className="text-sm">Business Studies & Accountancy</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <span className="text-sm">Economics & Entrepreneurship</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <span className="text-sm">Financial Literacy Programs</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <span className="text-sm">Industry Visits & Internships</span>
+                </div>
+              </div>
+              
+              <Link to="/programs/management">
+                <Button variant="outline" size="sm" className="w-full">
+                  Explore Management Stream
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </Card>
           </div>
-          <h3 className="text-xl font-bold mb-3">Management Stream</h3>
-          <p className="text-muted-foreground text-sm mb-4">
-            Comprehensive program in Business Studies, Accountancy, and Economics to develop future leaders in business and finance.
-          </p>
+          
+          {/* Additional info about other programs */}
+          <div className="mt-16 text-center">
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+              We also offer comprehensive programs for Early Childhood, Primary, and Secondary education.
+            </p>
+            <Link to="/programs">
+              <Button variant="ghost" className="text-primary">
+                View All Educational Programs
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </div>
         </div>
-        
-        <div className="space-y-2 mb-6">
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-            <span className="text-sm">Business Studies & Accountancy</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-            <span className="text-sm">Economics & Entrepreneurship</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-            <span className="text-sm">Financial Literacy Programs</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-            <span className="text-sm">Industry Visits & Internships</span>
-          </div>
-        </div>
-        
-        <Link to="/programs/management">
-          <Button variant="outline" size="sm" className="w-full">
-            Explore Management Stream
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
-      </Card>
-    </div>
-    
-    {/* Additional info about other programs */}
-    <div className="mt-16 text-center">
-      <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-        We also offer comprehensive programs for Early Childhood, Primary, and Secondary education.
-      </p>
-      <Link to="/programs">
-        <Button variant="ghost" className="text-primary">
-          View All Educational Programs
-          <ArrowRight className="w-4 h-4 ml-2" />
-        </Button>
-      </Link>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* CTA Section */}
       <section className="py-20 hero-gradient text-white">
@@ -374,6 +389,53 @@ export default function Home() {
 
       {/* Leadership Messages Section */}
       <LeadershipSlider />
+
+      {/* YouTube Video Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25 }}
+              className="relative w-full max-w-4xl bg-background rounded-xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowVideoModal(false)}
+                className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm p-2 rounded-full text-white transition-smooth"
+                aria-label="Close video"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              
+              <div className="aspect-video w-full">
+                <iframe
+                  src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1"
+                  title="Campus Tour - Siddhartha School"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              
+              <div className="p-4 bg-background">
+                <h3 className="text-xl font-bold text-center">Campus Tour</h3>
+                <p className="text-muted-foreground text-center mt-2">
+                  Take a virtual tour of our beautiful campus and facilities
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
     </>
   );
