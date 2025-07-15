@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
@@ -14,14 +15,26 @@ import News from "./pages/News";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
+// About sub-pages
+import Introduction from "./pages/about/Introduction";
+import History from "./pages/about/History";
+import Faculty from "./pages/about/Faculty";
+
+// Programs sub-pages
+import Science from "./pages/programs/Science";
+import Management from "./pages/programs/Management";
+
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
         <BrowserRouter>
           <div className="min-h-screen flex flex-col w-full">
             <Header />
@@ -29,7 +42,12 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/about/introduction" element={<Introduction />} />
+                <Route path="/about/history" element={<History />} />
+                <Route path="/about/faculty" element={<Faculty />} />
                 <Route path="/programs" element={<Programs />} />
+                <Route path="/programs/science" element={<Science />} />
+                <Route path="/programs/management" element={<Management />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/news" element={<News />} />
                 <Route path="/contact" element={<Contact />} />

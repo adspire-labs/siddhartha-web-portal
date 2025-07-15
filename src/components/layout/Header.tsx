@@ -1,14 +1,29 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import logo from '@/assets/siddhartha-logo.png';
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Programs', href: '/programs' },
+  { 
+    name: 'About', 
+    href: '/about',
+    subPages: [
+      { name: 'Introduction', href: '/about/introduction' },
+      { name: 'Our History', href: '/about/history' },
+      { name: 'Our Faculty', href: '/about/faculty' },
+    ]
+  },
+  { 
+    name: 'Programs', 
+    href: '/programs',
+    subPages: [
+      { name: 'Science Stream', href: '/programs/science' },
+      { name: 'Management Stream', href: '/programs/management' },
+    ]
+  },
   { name: 'Gallery', href: '/gallery' },
   { name: 'News & Notice', href: '/news' },
   { name: 'Contact', href: '/contact' },
@@ -69,21 +84,36 @@ export const Header = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
-            <nav className="flex flex-col space-y-3">
+            <nav className="flex flex-col space-y-1">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "text-sm font-medium px-3 py-2 rounded-md transition-smooth",
-                    location.pathname === item.href
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                <div key={item.name}>
+                  <Link
+                    to={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "block text-sm font-medium px-4 py-3 rounded-lg transition-smooth",
+                      location.pathname === item.href
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.subPages && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {item.subPages.map((subPage) => (
+                        <Link
+                          key={subPage.name}
+                          to={subPage.href}
+                          onClick={() => setIsOpen(false)}
+                          className="block text-xs px-4 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-smooth"
+                        >
+                          {subPage.name}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                >
-                  {item.name}
-                </Link>
+                </div>
               ))}
               <div className="pt-3 border-t border-border">
                 <Button size="sm" className="w-full">
