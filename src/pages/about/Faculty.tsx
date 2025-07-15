@@ -2,164 +2,242 @@ import { motion } from 'framer-motion';
 import { HeroSection } from '@/components/ui/hero-section';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useScrollAnimation } from '@/hooks/use-scroll-animation';
-import { GraduationCap, Mail, Phone, Award, BookOpen, Users } from 'lucide-react';
+import { GraduationCap, Mail, Phone, Award, BookOpen } from 'lucide-react';
 import schoolBuilding from '@/assets/school-building.jpg';
 
+// This would come from your backend API in a real application
+const fetchFacultyData = async () => {
+  // In a real app, this would be an API call:
+  // const response = await fetch('/api/faculty');
+  // return await response.json();
+  
+  return {
+    stats: [
+      { number: '50+', label: 'Expert Faculty Members' },
+      { number: '15+', label: 'Average Years Experience' },
+      { number: '80%', label: 'Masters Degree Holders' },
+      { number: '20%', label: 'PhD Qualified' }
+    ],
+    departments: [
+      {
+        id: 1,
+        name: 'English Department',
+        description: 'Developing language skills and literature appreciation',
+        color: 'bg-blue-500',
+        faculty: [
+          {
+            id: 101,
+            name: 'Dr. Sarah Johnson',
+            position: 'Head of English Department',
+            qualification: 'Ph.D. in English Literature',
+            experience: '15 years',
+            specialization: ['Literature', 'Creative Writing', 'Language Skills'],
+            email: 'sarah.johnson@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/english/sarah-johnson.jpg' // Backend would provide this path
+          },
+          {
+            id: 102,
+            name: 'Mr. Rajesh Sharma',
+            position: 'Senior English Teacher',
+            qualification: 'M.A. in English',
+            experience: '12 years',
+            specialization: ['Grammar', 'Communication Skills', 'Phonetics'],
+            email: 'rajesh.sharma@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/english/rajesh-sharma.jpg'
+          }
+        ]
+      },
+      // Other departments would follow the same structure
+    ]
+  };
+};
+
 export default function Faculty() {
-
-  const facultyDepartments = [
-    {
-      name: 'English Department',
-      description: 'Developing language skills and literature appreciation',
-      color: 'bg-blue-500',
-      faculty: [
-        {
-          name: 'Dr. Sarah Johnson',
-          position: 'Head of English Department',
-          qualification: 'Ph.D. in English Literature',
-          experience: '15 years',
-          specialization: ['Literature', 'Creative Writing', 'Language Skills'],
-          email: 'sarah.johnson@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mr. Rajesh Sharma',
-          position: 'Senior English Teacher',
-          qualification: 'M.A. in English',
-          experience: '12 years',
-          specialization: ['Grammar', 'Communication Skills', 'Phonetics'],
-          email: 'rajesh.sharma@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        }
-      ]
-    },
-    {
-      name: 'Nepali Department',
-      description: 'Preserving and promoting Nepali language and culture',
-      color: 'bg-green-500',
-      faculty: [
-        {
-          name: 'Mrs. Kamala Adhikari',
-          position: 'Head of Nepali Department',
-          qualification: 'M.A. in Nepali Literature',
-          experience: '18 years',
-          specialization: ['Nepali Literature', 'Grammar', 'Cultural Studies'],
-          email: 'kamala.adhikari@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mr. Bishnu Prasad Poudel',
-          position: 'Senior Nepali Teacher',
-          qualification: 'M.A. in Nepali',
-          experience: '10 years',
-          specialization: ['Poetry', 'Essay Writing', 'Language Development'],
-          email: 'bishnu.poudel@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        }
-      ]
-    },
-    {
-      name: 'Mathematics Department',
-      description: 'Building logical thinking and problem-solving skills',
-      color: 'bg-purple-500',
-      faculty: [
-        {
-          name: 'Dr. Anand Kumar',
-          position: 'Head of Mathematics Department',
-          qualification: 'Ph.D. in Mathematics',
-          experience: '20 years',
-          specialization: ['Calculus', 'Statistics', 'Applied Mathematics'],
-          email: 'anand.kumar@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mrs. Sita Regmi',
-          position: 'Senior Mathematics Teacher',
-          qualification: 'M.Sc. in Mathematics',
-          experience: '14 years',
-          specialization: ['Algebra', 'Geometry', 'Trigonometry'],
-          email: 'sita.regmi@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        }
-      ]
-    },
-    {
-      name: 'Science Department',
-      description: 'Exploring the wonders of natural sciences',
-      color: 'bg-orange-500',
-      faculty: [
-        {
-          name: 'Dr. Ram Bahadur Thapa',
-          position: 'Head of Science Department',
-          qualification: 'Ph.D. in Physics',
-          experience: '16 years',
-          specialization: ['Physics', 'Research Methodology', 'Laboratory Management'],
-          email: 'ram.thapa@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mrs. Sunita Karki',
-          position: 'Senior Chemistry Teacher',
-          qualification: 'M.Sc. in Chemistry',
-          experience: '11 years',
-          specialization: ['Organic Chemistry', 'Biochemistry', 'Environmental Science'],
-          email: 'sunita.karki@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mr. Deepak Shrestha',
-          position: 'Biology Teacher',
-          qualification: 'M.Sc. in Biology',
-          experience: '9 years',
-          specialization: ['Botany', 'Zoology', 'Genetics'],
-          email: 'deepak.shrestha@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        }
-      ]
-    },
-    {
-      name: 'Administration',
-      description: 'Managing school operations and student services',
-      color: 'bg-red-500',
-      faculty: [
-        {
-          name: 'Mr. Yam Bahadur Rana',
-          position: 'Principal',
-          qualification: 'M.Ed. in Educational Administration',
-          experience: '25 years',
-          specialization: ['Educational Leadership', 'Curriculum Development', 'School Management'],
-          email: 'principal@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mrs. Geeta Pandey',
-          position: 'Vice Principal',
-          qualification: 'M.A. in Education',
-          experience: '20 years',
-          specialization: ['Academic Coordination', 'Student Affairs', 'Quality Assurance'],
-          email: 'vice.principal@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        },
-        {
-          name: 'Mr. Bikash Gautam',
-          position: 'Administrative Officer',
-          qualification: 'MBA in Management',
-          experience: '8 years',
-          specialization: ['Financial Management', 'Human Resources', 'Operations'],
-          email: 'admin@sebs.edu.np',
-          phone: '+977-98XXXXXXXX'
-        }
-      ]
-    }
-  ];
-
-  const stats = [
-    { number: '50+', label: 'Expert Faculty Members' },
-    { number: '15+', label: 'Average Years Experience' },
-    { number: '80%', label: 'Masters Degree Holders' },
-    { number: '20%', label: 'PhD Qualified' }
-  ];
+  // In a real app, this would come from API/data fetching
+  const facultyData = {
+    stats: [
+      { number: '50+', label: 'Expert Faculty Members' },
+      { number: '15+', label: 'Average Years Experience' },
+      { number: '80%', label: 'Masters Degree Holders' },
+      { number: '20%', label: 'PhD Qualified' }
+    ],
+    departments: [
+      {
+        id: 1,
+        name: 'English Department',
+        description: 'Developing language skills and literature appreciation',
+        color: 'bg-blue-500',
+        faculty: [
+          {
+            id: 101,
+            name: 'Dr. Sarah Johnson',
+            position: 'Head of English Department',
+            qualification: 'Ph.D. in English Literature',
+            experience: '15 years',
+            specialization: ['Literature', 'Creative Writing', 'Language Skills'],
+            email: 'sarah.johnson@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/english/sarah-johnson.jpg'
+          },
+          {
+            id: 102,
+            name: 'Mr. Rajesh Sharma',
+            position: 'Senior English Teacher',
+            qualification: 'M.A. in English',
+            experience: '12 years',
+            specialization: ['Grammar', 'Communication Skills', 'Phonetics'],
+            email: 'rajesh.sharma@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/english/rajesh-sharma.jpg'
+          }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Nepali Department',
+        description: 'Preserving and promoting Nepali language and culture',
+        color: 'bg-green-500',
+        faculty: [
+          {
+            id: 201,
+            name: 'Mrs. Kamala Adhikari',
+            position: 'Head of Nepali Department',
+            qualification: 'M.A. in Nepali Literature',
+            experience: '18 years',
+            specialization: ['Nepali Literature', 'Grammar', 'Cultural Studies'],
+            email: 'kamala.adhikari@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/nepali/kamala-adhikari.jpg'
+          },
+          {
+            id: 202,
+            name: 'Mr. Bishnu Prasad Poudel',
+            position: 'Senior Nepali Teacher',
+            qualification: 'M.A. in Nepali',
+            experience: '10 years',
+            specialization: ['Poetry', 'Essay Writing', 'Language Development'],
+            email: 'bishnu.poudel@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/nepali/bishnu-poudel.jpg'
+          }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Mathematics Department',
+        description: 'Building logical thinking and problem-solving skills',
+        color: 'bg-purple-500',
+        faculty: [
+          {
+            id: 301,
+            name: 'Dr. Anand Kumar',
+            position: 'Head of Mathematics Department',
+            qualification: 'Ph.D. in Mathematics',
+            experience: '20 years',
+            specialization: ['Calculus', 'Statistics', 'Applied Mathematics'],
+            email: 'anand.kumar@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/math/anand-kumar.jpg'
+          },
+          {
+            id: 302,
+            name: 'Mrs. Sita Regmi',
+            position: 'Senior Mathematics Teacher',
+            qualification: 'M.Sc. in Mathematics',
+            experience: '14 years',
+            specialization: ['Algebra', 'Geometry', 'Trigonometry'],
+            email: 'sita.regmi@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/math/sita-regmi.jpg'
+          }
+        ]
+      },
+      {
+        id: 4,
+        name: 'Science Department',
+        description: 'Exploring the wonders of natural sciences',
+        color: 'bg-orange-500',
+        faculty: [
+          {
+            id: 401,
+            name: 'Dr. Ram Bahadur Thapa',
+            position: 'Head of Science Department',
+            qualification: 'Ph.D. in Physics',
+            experience: '16 years',
+            specialization: ['Physics', 'Research Methodology', 'Laboratory Management'],
+            email: 'ram.thapa@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/science/ram-thapa.jpg'
+          },
+          {
+            id: 402,
+            name: 'Mrs. Sunita Karki',
+            position: 'Senior Chemistry Teacher',
+            qualification: 'M.Sc. in Chemistry',
+            experience: '11 years',
+            specialization: ['Organic Chemistry', 'Biochemistry', 'Environmental Science'],
+            email: 'sunita.karki@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/science/sunita-karki.jpg'
+          },
+          {
+            id: 403,
+            name: 'Mr. Deepak Shrestha',
+            position: 'Biology Teacher',
+            qualification: 'M.Sc. in Biology',
+            experience: '9 years',
+            specialization: ['Botany', 'Zoology', 'Genetics'],
+            email: 'deepak.shrestha@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/science/deepak-shrestha.jpg'
+          }
+        ]
+      },
+      {
+        id: 5,
+        name: 'Administration',
+        description: 'Managing school operations and student services',
+        color: 'bg-red-500',
+        faculty: [
+          {
+            id: 501,
+            name: 'Mr. Yam Bahadur Rana',
+            position: 'Principal',
+            qualification: 'M.Ed. in Educational Administration',
+            experience: '25 years',
+            specialization: ['Educational Leadership', 'Curriculum Development', 'School Management'],
+            email: 'principal@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/admin/yam-rana.jpg'
+          },
+          {
+            id: 502,
+            name: 'Mrs. Geeta Pandey',
+            position: 'Vice Principal',
+            qualification: 'M.A. in Education',
+            experience: '20 years',
+            specialization: ['Academic Coordination', 'Student Affairs', 'Quality Assurance'],
+            email: 'vice.principal@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/admin/geeta-pandey.jpg'
+          },
+          {
+            id: 503,
+            name: 'Mr. Bikash Gautam',
+            position: 'Administrative Officer',
+            qualification: 'MBA in Management',
+            experience: '8 years',
+            specialization: ['Financial Management', 'Human Resources', 'Operations'],
+            email: 'admin@sebs.edu.np',
+            phone: '+977-98XXXXXXXX',
+            image: '/images/faculty/admin/bikash-gautam.jpg'
+          }
+        ]
+      }
+    ]
+  };
 
   return (
     <div className="pt-16">
@@ -189,7 +267,7 @@ export default function Faculty() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-            {stats.map((stat, index) => (
+            {facultyData.stats.map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -212,12 +290,12 @@ export default function Faculty() {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="space-y-20">
-            {facultyDepartments.map((department, deptIndex) => (
+            {facultyData.departments.map((department) => (
               <motion.div
-                key={deptIndex}
+                key={department.id}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: deptIndex * 0.1 }}
+                transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
                 {/* Department Header */}
@@ -233,19 +311,38 @@ export default function Faculty() {
 
                 {/* Faculty Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {department.faculty.map((member, memberIndex) => (
+                  {department.faculty.map((member) => (
                     <motion.div
-                      key={memberIndex}
+                      key={member.id}
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: memberIndex * 0.1 }}
+                      transition={{ duration: 0.6 }}
                       viewport={{ once: true }}
                       whileHover={{ scale: 1.02 }}
                     >
-                      <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full">
-                        {/* Profile Photo Placeholder */}
-                        <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                          <Users className="w-12 h-12 text-white" />
+                      <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full flex flex-col">
+                        {/* Profile Photo */}
+                        <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-primary/20">
+                          <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-full flex items-center justify-center">
+                            <img 
+                              src={member.image} 
+                              alt={member.name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.parentNode.innerHTML = `
+                                  <div class="bg-gray-100 border-2 border-dashed rounded-xl w-full h-full flex items-center justify-center text-gray-400">
+                                    <div class="text-center">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                      </svg>
+                                      <span class="text-xs mt-2">Photo</span>
+                                    </div>
+                                  </div>
+                                `;
+                              }}
+                            />
+                          </div>
                         </div>
 
                         <div className="text-center mb-4">
@@ -253,14 +350,14 @@ export default function Faculty() {
                           <p className="text-primary font-medium text-sm">{member.position}</p>
                         </div>
 
-                        <div className="space-y-3 mb-4">
+                        <div className="space-y-3 mb-4 flex-grow">
                           <div className="flex items-center text-sm">
                             <GraduationCap className="w-4 h-4 mr-2 text-primary flex-shrink-0" />
                             <span className="text-muted-foreground">{member.qualification}</span>
                           </div>
                           <div className="flex items-center text-sm">
                             <Award className="w-4 h-4 mr-2 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">{member.experience}</span>
+                            <span className="text-muted-foreground">{member.experience} experience</span>
                           </div>
                         </div>
 
@@ -275,14 +372,18 @@ export default function Faculty() {
                           </div>
                         </div>
 
-                        <div className="space-y-2 text-xs">
+                        <div className="space-y-2 text-xs mt-auto">
                           <div className="flex items-center">
                             <Mail className="w-3 h-3 mr-2 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">{member.email}</span>
+                            <a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-primary hover:underline">
+                              {member.email}
+                            </a>
                           </div>
                           <div className="flex items-center">
                             <Phone className="w-3 h-3 mr-2 text-primary flex-shrink-0" />
-                            <span className="text-muted-foreground">{member.phone}</span>
+                            <a href={`tel:${member.phone}`} className="text-muted-foreground hover:text-primary hover:underline">
+                              {member.phone}
+                            </a>
                           </div>
                         </div>
                       </Card>
