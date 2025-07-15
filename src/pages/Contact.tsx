@@ -188,7 +188,7 @@ export default function Contact() {
                     <MessageCircle className="w-5 h-5 text-primary" />
                     <div>
                       <p className="font-medium">WhatsApp</p>
-                      <p className="text-sm text-muted-foreground">+977-XXXX-XXXX</p>
+                      <p className="text-sm text-muted-foreground">+9977 985-7033108</p>
                     </div>
                   </div>
                 </div>
