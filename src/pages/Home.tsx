@@ -244,43 +244,111 @@ export default function Home() {
       </section>
 
       {/* Programs Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Educational Programs</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive education programs designed to nurture young minds at every stage of their development.
-            </p>
-          </div>
+<section className="py-20">
+  <div className="container mx-auto px-4">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-4xl font-bold mb-4">Our Academic Streams</h2>
+      <p className="text-muted-foreground max-w-2xl mx-auto">
+        Specialized programs designed to prepare students for their future careers with focused curriculum and practical skills.
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {programs.map((program, index) => (
-              <Card key={index} className="p-6 shadow-card hover:shadow-elegant transition-smooth">
-                <div className="mb-4">
-                  <div className="text-sm font-medium text-primary mb-2">{program.age}</div>
-                  <h3 className="text-xl font-bold mb-3">{program.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{program.description}</p>
-                </div>
-                
-                <div className="space-y-2 mb-6">
-                  {program.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center space-x-2">
-                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-                
-                <Link to="/programs">
-                  <Button variant="outline" size="sm" className="w-full">
-                    Learn More
-                  </Button>
-                </Link>
-              </Card>
-            ))}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      {/* Science Stream Card */}
+      <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
+        <div className="mb-4">
+          <div className="text-sm font-medium text-blue-600 mb-2 flex items-center">
+            <Globe className="w-4 h-4 mr-2" />
+            SCIENCE & TECHNOLOGY
+          </div>
+          <h3 className="text-xl font-bold mb-3">Science Stream</h3>
+          <p className="text-muted-foreground text-sm mb-4">
+            Focused curriculum in Physics, Chemistry, Biology, and Mathematics to prepare students for careers in medicine, engineering, and technology.
+          </p>
+        </div>
+        
+        <div className="space-y-2 mb-6">
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <span className="text-sm">Advanced Physics & Chemistry Labs</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <span className="text-sm">Mathematics & Computer Science</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <span className="text-sm">Research Projects & Science Fairs</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
+            <span className="text-sm">Entrance Exam Preparation</span>
           </div>
         </div>
-      </section>
+        
+        <Link to="/programs/science">
+          <Button variant="outline" size="sm" className="w-full">
+            Explore Science Stream
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </Link>
+      </Card>
+
+      {/* Management Stream Card */}
+      <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
+        <div className="mb-4">
+          <div className="text-sm font-medium text-green-600 mb-2 flex items-center">
+            <Lightbulb className="w-4 h-4 mr-2" />
+            BUSINESS & COMMERCE
+          </div>
+          <h3 className="text-xl font-bold mb-3">Management Stream</h3>
+          <p className="text-muted-foreground text-sm mb-4">
+            Comprehensive program in Business Studies, Accountancy, and Economics to develop future leaders in business and finance.
+          </p>
+        </div>
+        
+        <div className="space-y-2 mb-6">
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-sm">Business Studies & Accountancy</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-sm">Economics & Entrepreneurship</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-sm">Financial Literacy Programs</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-sm">Industry Visits & Internships</span>
+          </div>
+        </div>
+        
+        <Link to="/programs/management">
+          <Button variant="outline" size="sm" className="w-full">
+            Explore Management Stream
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </Link>
+      </Card>
+    </div>
+    
+    {/* Additional info about other programs */}
+    <div className="mt-16 text-center">
+      <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+        We also offer comprehensive programs for Early Childhood, Primary, and Secondary education.
+      </p>
+      <Link to="/programs">
+        <Button variant="ghost" className="text-primary">
+          View All Educational Programs
+          <ArrowRight className="w-4 h-4 ml-2" />
+        </Button>
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* CTA Section */}
       <section className="py-20 hero-gradient text-white">
