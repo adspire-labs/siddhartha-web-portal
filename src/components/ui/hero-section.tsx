@@ -81,12 +81,12 @@ export const HeroSection = ({
       </div>
       
       {/* Enhanced Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20">
         <div className="flex flex-col items-center animate-bounce">
-          <div className="w-8 h-12 rounded-full border-2 border-white/40 flex items-start justify-center p-2">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+          <div className="w-6 h-10 rounded-full border-2 border-white/60 flex items-start justify-center p-2 bg-white/10 backdrop-blur-sm">
+            <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
           </div>
-          <span className="mt-1 text-xs text-white/80 font-medium tracking-wide">Scroll</span>
+          <span className="mt-2 text-xs text-white/90 font-medium tracking-wide">Scroll</span>
         </div>
       </div>
     </section>

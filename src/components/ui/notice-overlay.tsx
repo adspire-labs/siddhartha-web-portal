@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card';
 
 export function NoticeOverlay() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     // Show notice overlay after a short delay
@@ -80,14 +81,40 @@ export function NoticeOverlay() {
                   <p className="text-primary font-medium">
                     Registration Deadline: March 15, 2025
                   </p>
+                  
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="space-y-2 pt-4 border-t border-muted"
+                      >
+                        <p className="font-medium text-foreground">
+                          Required Documents:
+                        </p>
+                        <p>• SEE Certificate (for Grade XI)</p>
+                        <p>• Birth Certificate</p>
+                        <p>• Passport Size Photos</p>
+                        <p>• Transfer Certificate</p>
+                        <p className="font-medium text-foreground mt-3">
+                          Contact Information:
+                        </p>
+                        <p>📞 Phone: +977-071-547XXX</p>
+                        <p>📧 Email: admission@sebs.edu.np</p>
+                        <p>🏢 Address: Butwal-8, Rupandehi</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
                 
                 <div className="mt-6 space-y-2">
                   <Button 
                     className="w-full shadow-glow"
-                    onClick={handleClose}
+                    onClick={() => setIsExpanded(!isExpanded)}
                   >
-                    Learn More About Admission
+                    {isExpanded ? "Show Less" : "Read More"}
                   </Button>
                   <Button 
                     variant="outline" 

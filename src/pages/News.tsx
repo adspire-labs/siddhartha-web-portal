@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { HeroSection } from '@/components/ui/hero-section';
@@ -138,6 +140,8 @@ export default function News() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {featuredNews.map((item) => {
                 const CategoryIcon = getCategoryIcon(item.category);
+                const [isExpanded, setIsExpanded] = useState(false);
+                
                 return (
                   <Card key={item.id} className="overflow-hidden shadow-elegant hover:shadow-glow transition-smooth">
                     <div className="p-6">
@@ -160,13 +164,32 @@ export default function News() {
                         {item.excerpt}
                       </p>
                       
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mb-4 space-y-3 text-sm text-muted-foreground"
+                          >
+                            <p>This is the detailed content of the news article. It would contain the full story with all the important details about the announcement, event, or information being shared with the school community.</p>
+                            <p>Additional paragraphs would follow here with more detailed information about the topic, including relevant dates, procedures, or any action items that students, parents, or staff need to be aware of.</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                      
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                           <Clock className="w-4 h-4" />
                           <span>{item.readTime}</span>
                         </div>
-                        <Button variant="ghost" size="sm">
-                          Read More
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => setIsExpanded(!isExpanded)}
+                        >
+                          {isExpanded ? "Show Less" : "Read More"}
                           <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                       </div>
@@ -190,6 +213,8 @@ export default function News() {
           <div className="max-w-4xl mx-auto space-y-6">
             {newsItems.map((item) => {
               const CategoryIcon = getCategoryIcon(item.category);
+              const [isExpanded, setIsExpanded] = useState(false);
+              
               return (
                 <Card key={item.id} className="p-6 shadow-card hover:shadow-elegant transition-smooth">
                   <div className="flex flex-col md:flex-row md:items-center justify-between space-y-4 md:space-y-0">
@@ -216,11 +241,30 @@ export default function News() {
                       <p className="text-muted-foreground text-sm">
                         {item.excerpt}
                       </p>
+                      
+                      <AnimatePresence>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="mt-3 space-y-2 text-sm text-muted-foreground"
+                          >
+                            <p>This is the detailed content of the news article. It provides comprehensive information about the announcement or event being shared with the school community.</p>
+                            <p>Additional details and relevant information would be included here to give readers a complete understanding of the topic.</p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                     
                     <div className="flex-shrink-0">
-                      <Button variant="ghost" size="sm">
-                        Read More
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        onClick={() => setIsExpanded(!isExpanded)}
+                      >
+                        {isExpanded ? "Show Less" : "Read More"}
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </div>

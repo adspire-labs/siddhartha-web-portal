@@ -102,7 +102,7 @@ export default function Contact() {
         description="We're here to answer your questions and provide information about our exceptional educational programs."
         backgroundImage={heroImage}
         height="lg"
-        overlay="dark"
+        overlay={true}
       />
 
       {/* Contact Information Cards */}
