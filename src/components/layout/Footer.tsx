@@ -91,11 +91,13 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-          <p className="text-primary-foreground/60 text-sm">
-            © 2024 Siddhartha School. All rights reserved. | Education for All-Round Development
-          </p>
-        </div>
+       <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
+  <p className="text-primary-foreground/60 text-sm">
+    © 2024 Siddhartha School. All rights reserved. | Education for All-Round Development
+    <br />
+    Powered by <a href="https://www.adspirelabs.com.np" target="_blank" rel="noopener noreferrer" className="hover:underline">Adspire Labs</a>
+  </p>
+</div>
       </div>
     </footer>
   );
