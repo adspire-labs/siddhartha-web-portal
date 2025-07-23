@@ -28,6 +28,7 @@ import { NewsForm } from "./components/ui/NewsForm";
 import FacultyPage from "./pages/about/FacultyAdd";
 import FacultyAdd from "./pages/about/FacultyAdd";
 import GalleryUpload from "./pages/GalleryForm";
+import Dashboard from "./components/ui/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -58,19 +59,20 @@ const App = () => {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path='/Optimistic@2082' element={<Dashboard/>}/>
                 <Route path="/about" element={<About />} />
                 <Route path="/about/introduction" element={<Introduction />} />
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
-                <Route path="/about/faculty/add" element={<FacultyAdd />} />
+                <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
 
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/programs/science" element={<Science />} />
                 <Route path="/programs/management" element={<Management />} />
                 <Route path="/gallery" element={<Gallery />} />
-                <Route path='/gallery/add' element={<GalleryUpload/>}/>
+                <Route path='/dashboard/gallery/Optimistic@2082' element={<GalleryUpload/>}/>
                 <Route path="/news" element={<News />} />
-                <Route path="/news/add" element={<NewsForm/>}/>
+                <Route path="/dashboard/news/Optimistic@2082" element={<NewsForm/>}/>
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
