@@ -1,79 +1,109 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { ImageIcon, BellIcon, UsersIcon, ChevronRight } from "lucide-react";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
-  const gotoGallery = () => {
-    navigate("/dashboard/gallery/optimistic@2082");
-  };
-  const gotoFaculty = () => {
-    navigate("/dashboard/about/faculty/optimistic@2082");
-  };
-  const gotoNewsAndNotice = () => {
-    navigate("/dashboard/news/optimistic@2082");
-  };
+  const gotoGallery = () => navigate("/dashboard/gallery/optimistic@2082");
+  const gotoFaculty = () => navigate("/dashboard/about/faculty/optimistic@2082");
+  const gotoNewsAndNotice = () => navigate("/dashboard/news/optimistic@2082");
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
-      {/* Dashboard Header */}
-      <h1 className="text-4xl font-bold text-gray-800 mb-12">Dashboard</h1>
-
-      {/* Cards Container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 p-8">
-        {/* Card 1 (Gallery) */}
-        <motion.div
-          className="bg-white rounded-lg shadow-xl p-8 flex flex-col items-center space-y-6 transform hover:scale-110 transition-all duration-300"
-          whileHover={{ scale: 1.1 }}
+    <div className="min-h-screen bg-gray-50 pt-24 p-6"> {/* Added pt-24 for top padding */}
+      <div className="max-w-6xl mx-auto">
+        {/* Header - now properly spaced below nav */}
+        <motion.header
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
         >
-          <h3 className="text-2xl font-semibold text-gray-800">Gallery</h3>
-          <p className="text-base text-gray-600 text-center">
-            Explore the latest collection of images and art.
-          </p>
-          <motion.button
-            onClick={() => gotoGallery()}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg focus:outline-none transform transition-all duration-200 hover:scale-105"
-            whileHover={{ scale: 1.1 }}
-          >
-            Go to Gallery
-          </motion.button>
-        </motion.div>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Admin Dashboard</h1>
+          <p className="text-gray-500">Manage your school content</p>
+        </motion.header>
 
-        {/* Card 2 (Notice) */}
-        <motion.div
-          className="bg-white rounded-lg shadow-xl p-8 flex flex-col items-center space-y-6 transform hover:scale-110 transition-all duration-300"
-          whileHover={{ scale: 1.1 }}
-        >
-          <h3 className="text-2xl font-semibold text-gray-800">Notice</h3>
-          <p className="text-base text-gray-600 text-center">
-            Check the latest announcements and updates.
-          </p>
-          <motion.button
-            onClick={() => gotoNewsAndNotice()}
-            className="bg-green-600 text-white px-6 py-3 rounded-lg focus:outline-none transform transition-all duration-200 hover:scale-105"
-            whileHover={{ scale: 1.1 }}
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Gallery Card */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -5 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all cursor-pointer"
+            onClick={gotoGallery}
           >
-            View Notices
-          </motion.button>
-        </motion.div>
+            <div className="p-6">
+              <div className="flex justify-center mb-4 text-blue-500 bg-blue-50 p-3 rounded-full w-12 h-12 mx-auto">
+                <ImageIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 text-center mb-2">Gallery</h3>
+              <p className="text-gray-500 text-sm text-center mb-4">Manage school photos and albums</p>
+              <div className="flex justify-center">
+                <button className="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                  Manage <ChevronRight className="h-4 w-4 ml-1" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* Card 3 (Faculty) */}
-        <motion.div
-          className="bg-white rounded-lg shadow-xl p-8 flex flex-col items-center space-y-6 transform hover:scale-110 transition-all duration-300"
-          whileHover={{ scale: 1.1 }}
-        >
-          <h3 className="text-2xl font-semibold text-gray-800">Faculty</h3>
-          <p className="text-base text-gray-600 text-center">
-            Meet our talented team of faculty members.
-          </p>
-          <motion.button
-            onClick={() => gotoFaculty()}
-            className="bg-red-600 text-white px-6 py-3 rounded-lg focus:outline-none transform transition-all duration-200 hover:scale-105"
-            whileHover={{ scale: 1.1 }}
+          {/* News Card */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -5 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all cursor-pointer"
+            onClick={gotoNewsAndNotice}
           >
-            Meet Faculty
-          </motion.button>
-        </motion.div>
+            <div className="p-6">
+              <div className="flex justify-center mb-4 text-green-500 bg-green-50 p-3 rounded-full w-12 h-12 mx-auto">
+                <BellIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 text-center mb-2">News & Notices</h3>
+              <p className="text-gray-500 text-sm text-center mb-4">Post announcements and updates</p>
+              <div className="flex justify-center">
+                <button className="text-green-600 hover:text-green-800 text-sm font-medium flex items-center">
+                  Manage <ChevronRight className="h-4 w-4 ml-1" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Faculty Card */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ y: -5 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all cursor-pointer"
+            onClick={gotoFaculty}
+          >
+            <div className="p-6">
+              <div className="flex justify-center mb-4 text-red-500 bg-red-50 p-3 rounded-full w-12 h-12 mx-auto">
+                <UsersIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 text-center mb-2">Faculty</h3>
+              <p className="text-gray-500 text-sm text-center mb-4">Manage teaching staff</p>
+              <div className="flex justify-center">
+                <button className="text-red-600 hover:text-red-800 text-sm font-medium flex items-center">
+                  Manage <ChevronRight className="h-4 w-4 ml-1" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Footer */}
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-16 pb-8 text-gray-400 text-sm"
+        >
+          <p>Powered by <span className="text-gray-600 font-medium">Adspire Labs Butwal</span></p>
+        </motion.footer>
       </div>
     </div>
   );
