@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ export interface NewsItem {
   category: string;
   type: string;
   featured: boolean;
-  createdAt: string; // ISO date string
+  createdAt: string;
 }
 
 export interface NewsResponse {
@@ -26,53 +26,80 @@ export function NoticeOverlay() {
   const [isVisible, setIsVisible] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [noticeNews, setNoticeNews] = useState<NewsItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const hasShownRef = useRef(false);
 
   useEffect(() => {
-    // Show notice overlay after 2 seconds delay
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 2000);
-    return () => clearTimeout(timer);
+    // Only run once on component mount
+    if (hasShownRef.current) return;
+    
+    const fetchNews = async () => {
+      try {
+        setIsLoading(true);
+        const res = await axios.get(apiEndpoint.fetchNews);
+        const allNews: NewsItem[] = res.data.newsData;
+
+        const filtered = allNews.filter(
+          (item) => item.category.toLowerCase() === "notice"
+        );
+
+        filtered.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+
+        setNoticeNews(filtered);
+        
+        // Only show if there's at least one notice
+        if (filtered.length > 0) {
+          timerRef.current = setTimeout(() => {
+            setIsVisible(true);
+            hasShownRef.current = true;
+          }, 2000);
+        }
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchNews();
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, []);
+
+  useEffect(() => {
+    // Lock body scroll when overlay is visible
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isVisible]);
 
   const handleClose = () => {
     setIsVisible(false);
   };
 
-  const fetchNews = async () => {
-    try {
-      const res = await axios.get(apiEndpoint.fetchNews);
-      const allNews: NewsItem[] = res.data.newsData;
-
-      // Filter news with category 'notice'
-      const filtered = allNews.filter(
-        (item) => item.category.toLowerCase() === "notice"
-      );
-
-      // Sort by createdAt descending (newest first)
-      filtered.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-
-      setNoticeNews(filtered);
-    } catch (error) {
-      console.error("Error fetching news:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchNews();
-  }, []);
-
-  // Show the most recent notice
   const notice = noticeNews[0];
+
+  // Don't render anything if no notices or loading
+  if (isLoading || !notice) return null;
 
   return (
     <AnimatePresence>
-      {isVisible && notice && (
+      {isVisible && (
         <motion.div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          style={{ height: "100dvh" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -111,7 +138,6 @@ export function NoticeOverlay() {
                   <Bell className="w-8 h-8 text-white" />
                 </motion.div>
 
-                {/* Important Notice Label */}
                 <div className="inline-block mb-2 px-3 py-1 bg-primary text-white font-semibold rounded-full text-sm tracking-wide select-none">
                   Important Notice
                 </div>
@@ -137,7 +163,6 @@ export function NoticeOverlay() {
                         Published on:{" "}
                         {new Date(notice.createdAt).toLocaleDateString()}
                       </p>
-                      {/* Add more detailed info here if available */}
                     </motion.div>
                   )}
                 </div>

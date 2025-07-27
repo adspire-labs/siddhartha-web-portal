@@ -87,7 +87,7 @@ export default function Home() {
 
   useEffect(() => {
     // Set page title and meta description for SEO
-    document.title = 'Siddhartha School - Best School in Butwal | Quality Education in Nepal';
+    document.title = 'Siddhartha School English Boarding School';
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute('content', 'Top-rated school in Butwal, Nepal offering quality education from Early Childhood to Grade XII. Science and Management streams available. Join the best school for academic excellence and holistic development.');
