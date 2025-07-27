@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Mail, Phone, Award, BookOpen } from "lucide-react";
 import schoolBuilding from "@/assets/school-building.jpg";
+import { apiEndpoint } from "../../../apiEndpoint";
 
 // Interfaces
 interface FacultyMember {
@@ -50,7 +51,7 @@ export default function Faculty() {
 
   const fetchFacultyData = async () => {
     try {
-      const res = await axios.get<FacultyApiResponse>("http://localhost:3000/api/faculty");
+      const res = await axios.get<FacultyApiResponse>(apiEndpoint.fetchFaculty);
       setFacultyData(res.data.facultyData);
     } catch (error) {
       toast.error("Error fetching faculty data");

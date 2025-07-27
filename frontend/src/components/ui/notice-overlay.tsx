@@ -4,6 +4,7 @@ import { X, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import axios from "axios";
+import { apiEndpoint } from "../../../apiEndpoint";
 
 export interface NewsItem {
   id: number;
@@ -40,8 +41,7 @@ export function NoticeOverlay() {
 
   const fetchNews = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/news");
-      console.log("API response:", res.data);
+      const res = await axios.get(apiEndpoint.fetchNews);
       const allNews: NewsItem[] = res.data.newsData;
 
       // Filter news with category 'notice'

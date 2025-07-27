@@ -8,14 +8,17 @@ import { Upload, Image as ImageIcon, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiEndpoint } from "../../apiEndpoint";
 
 interface GalleryItem {
-  galleryData: {
-    id: number;
-    title: string;
-    description: string;
-    photo: string;
-    createdAt: string;
+  data: {
+    galleryData: {
+      id: number;
+      title: string;
+      description: string;
+      photo: string;
+      createdAt: string;
+    };
   };
 }
 
@@ -37,9 +40,7 @@ export default function GalleryUpload() {
   const fetchGallery = async () => {
     setIsLoading(true);
     try {
-      const res = (await axios.get(
-        "http://localhost:3000/api/gallery/"
-      )) as GalleryItem;
+      const res = (await axios.get(apiEndpoint.fetchGallery)) as GalleryItem;
       setGalleryList(res.data.galleryData);
     } catch (error) {
       toast.error("Failed to fetch gallery images.");
@@ -80,13 +81,9 @@ export default function GalleryUpload() {
       form.append("description", formData.description);
       form.append("photo", selectedFile);
 
-      const response = await axios.post(
-        "http://localhost:3000/api/gallery/add",
-        form,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      const response = await axios.post(apiEndpoint.addGallery, form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       toast.success("Image uploaded successfully!");
       // Refresh gallery list after upload
@@ -110,7 +107,7 @@ export default function GalleryUpload() {
     if (!confirm("Are you sure you want to delete this image?")) return;
 
     try {
-      await axios.post(`http://localhost:3000/api/gallery/delete/${id}`, {
+      await axios.post(apiEndpoint.deleteGallery(id), {
         id,
       });
       toast.success("Image deleted.");
