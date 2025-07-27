@@ -1,34 +1,69 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, Image as ImageIcon } from "lucide-react";
+import { Upload, Image as ImageIcon, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+interface GalleryItem {
+  galleryData: {
+    id: number;
+    title: string;
+    description: string;
+    photo: string;
+    createdAt: string;
+  };
+}
+
 export default function GalleryUpload() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",       // changed from name -> title
+    title: "",
     description: "",
   });
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [galleryList, setGalleryList] = useState<GalleryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch gallery items from backend
+  const fetchGallery = async () => {
+    setIsLoading(true);
+    try {
+      const res = (await axios.get(
+        "http://localhost:3000/api/gallery/"
+      )) as GalleryItem;
+      setGalleryList(res.data.galleryData);
+    } catch (error) {
+      toast.error("Failed to fetch gallery images.");
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // On component mount, load gallery
+  useEffect(() => {
+    fetchGallery();
+  }, []);
+
+  // Handle image file select & preview
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      const preview = URL.createObjectURL(file);
-      setPreviewUrl(preview);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
+  // Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -49,16 +84,15 @@ export default function GalleryUpload() {
         "http://localhost:3000/api/gallery/add",
         form,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers: { "Content-Type": "multipart/form-data" },
         }
       );
 
       toast.success("Image uploaded successfully!");
-      navigate('/gallery')
+      // Refresh gallery list after upload
+      fetchGallery();
 
-      // Reset form
+      // Reset form & preview
       setFormData({ title: "", description: "" });
       setSelectedFile(null);
       setPreviewUrl("");
@@ -68,6 +102,22 @@ export default function GalleryUpload() {
       console.error(error);
     } finally {
       setIsUploading(false);
+    }
+  };
+
+  // Handle delete gallery image by id
+  const handleDelete = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this image?")) return;
+
+    try {
+      await axios.post(`http://localhost:3000/api/gallery/delete/${id}`, {
+        id,
+      });
+      toast.success("Image deleted.");
+      fetchGallery();
+    } catch (error) {
+      toast.error("Failed to delete image.");
+      console.error(error);
     }
   };
 
@@ -92,7 +142,10 @@ export default function GalleryUpload() {
                     id="title"
                     value={formData.title}
                     onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, title: e.target.value }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        title: e.target.value,
+                      }))
                     }
                     placeholder="Enter image title"
                     required
@@ -119,11 +172,10 @@ export default function GalleryUpload() {
                   <Label htmlFor="photo">Select Image</Label>
                   <Input
                     id="photo"
-                    name="photo"         
                     type="file"
+                    accept="image/*"
                     ref={fileInputRef}
                     onChange={handleFileSelect}
-                    accept="image/*"
                     required
                   />
                 </div>
@@ -180,6 +232,46 @@ export default function GalleryUpload() {
           </form>
         </CardContent>
       </Card>
+
+      {/* Gallery List */}
+      <div>
+        <h3 className="text-2xl font-semibold mb-6 mt-12">Gallery Images</h3>
+
+        {isLoading ? (
+          <p className="text-muted-foreground">Loading gallery...</p>
+        ) : galleryList.length === 0 ? (
+          <p className="text-muted-foreground">No images in the gallery yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {galleryList.map((item) => (
+              <Card key={item.id} className="shadow p-4 flex flex-col">
+                <img
+                  src={item.photo}
+                  alt={item.title}
+                  className="h-48 w-full object-cover rounded-md mb-4"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "/images/default-image.png";
+                  }}
+                />
+                <h4 className="font-semibold">{item.title}</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {item.description}
+                </p>
+                <Button
+                  variant="destructive"
+                  onClick={() => handleDelete(item.id)}
+                  size="sm"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Delete
+                </Button>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

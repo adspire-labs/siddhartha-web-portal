@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -12,12 +12,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { User, UserPlus } from "lucide-react";
+import { UserPlus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 
+interface FacultyMember {
+  id: number;
+  name: string;
+  department: string;
+  email: string;
+  experience: string;
+  phone: string;
+  photo: string;
+  position: string;
+  qualification: string;
+  specializations: string;
+}
+
+interface FacultyApiResponse {
+  data: {
+    message: string;
+    facultyData: FacultyMember[];
+  };
+}
+
 export default function FacultyAdd() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -91,7 +111,7 @@ export default function FacultyAdd() {
       );
 
       if (res.status === 200 || res.status === 201) {
-        navigate('/about/faculty')
+        navigate("/about/faculty");
         toast({
           title: "Success",
           description:
@@ -111,6 +131,7 @@ export default function FacultyAdd() {
         setSelectedFile(null);
         setPreviewUrl("");
         if (fileInputRef.current) fileInputRef.current.value = "";
+        fetchFaculty();
       } else {
         throw new Error(res.data?.message || "Unexpected server response.");
       }
@@ -126,8 +147,39 @@ export default function FacultyAdd() {
     }
   };
 
+  const [facultyList, setFacultyList] = useState<FacultyMember[]>([]);
+
+  const fetchFaculty = async () => {
+    try {
+      const res = (await axios.get(
+        "http://localhost:3000/api/faculty"
+      )) as FacultyApiResponse;
+      setFacultyList(res.data.facultyData || []);
+    } catch (error) {
+      console.error("Error fetching faculty:", error);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.post(`http://localhost:3000/api/faculty/delete/${id}`,{id});
+      toast({ title: "Deleted", description: "Faculty member deleted." });
+      fetchFaculty();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Could not delete faculty member.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchFaculty();
+  }, []);
+
   return (
-    <div className="px-4 py-8 md:px-8 lg:px-16 xl:px-24 space-y-8">
+    <div className="mt-16 px-4 py-8 md:px-8 lg:px-16 xl:px-24 space-y-8">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold text-foreground">
           Faculty Management
@@ -135,157 +187,118 @@ export default function FacultyAdd() {
         <p className="text-muted-foreground">Add a new faculty member</p>
       </div>
 
-      <Card className="shadow-md">
-        <CardHeader className="px-6 pt-4 pb-0" />
-        <CardContent className="p-6">
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-8"
-            encType="multipart/form-data"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="position">Position</Label>
-                    <Input
-                      id="position"
-                      value={formData.position}
-                      onChange={(e) =>
-                        setFormData({ ...formData, position: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input
-                      id="phone"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="department">Department *</Label>
-                    <Select
-                      value={formData.department}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, department: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select department" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {departments.map((d) => (
-                          <SelectItem key={d} value={d}>
-                            {d}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <Label htmlFor="experience">Experience</Label>
-                    <Input
-                      id="experience"
-                      value={formData.experience}
-                      onChange={(e) =>
-                        setFormData({ ...formData, experience: e.target.value })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="qualification">Qualification</Label>
-                  <Input
-                    id="qualification"
-                    value={formData.qualification}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        qualification: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="specializations">Specializations</Label>
-                  <Textarea
-                    id="specializations"
-                    value={formData.specializations}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        specializations: e.target.value,
-                      })
-                    }
-                    placeholder="e.g., AI, ML, Data Science"
-                  />
-                </div>
+      <form onSubmit={handleSubmit}>
+        <Card className="shadow-md">
+          <CardHeader className="px-6 pt-4 pb-0" />
+          <CardContent className="p-6 space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label>Name</Label>
+                <Input
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  required
+                />
               </div>
-
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="photo">Profile Photo *</Label>
-                  <Input
-                    id="photo"
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileSelect}
-                    accept="image/*"
+              <div>
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <Label>Position</Label>
+                <Input
+                  value={formData.position}
+                  onChange={(e) =>
+                    setFormData({ ...formData, position: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Phone</Label>
+                <Input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Qualification</Label>
+                <Input
+                  value={formData.qualification}
+                  onChange={(e) =>
+                    setFormData({ ...formData, qualification: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Experience</Label>
+                <Input
+                  value={formData.experience}
+                  onChange={(e) =>
+                    setFormData({ ...formData, experience: e.target.value })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Specializations</Label>
+                <Textarea
+                  value={formData.specializations}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      specializations: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div>
+                <Label>Department</Label>
+                <Select
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, department: value })
+                  }
+                  defaultValue={formData.department}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select department" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {departments.map((dept) => (
+                      <SelectItem key={dept} value={dept}>
+                        {dept}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Photo</Label>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  ref={fileInputRef}
+                />
+                {previewUrl && (
+                  <img
+                    src={previewUrl}
+                    alt="Preview"
+                    className="mt-2 w-24 h-24 object-cover rounded-full"
                   />
-                </div>
-                {previewUrl ? (
-                  <div className="border rounded-lg p-4 bg-card">
-                    <Label>Preview</Label>
-                    <img
-                      src={previewUrl}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-lg mt-2"
-                    />
-                  </div>
-                ) : (
-                  <div className="border-2 border-dashed rounded-lg p-8 text-center bg-muted/30">
-                    <User className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-muted-foreground text-sm">
-                      Select a photo
-                    </p>
-                  </div>
                 )}
               </div>
             </div>
-
             <Button
               type="submit"
               disabled={isSubmitting}
@@ -304,9 +317,45 @@ export default function FacultyAdd() {
                 </>
               )}
             </Button>
-          </form>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </form>
+
+      {/* Faculty List */}
+      <div className="space-y-4">
+        <h3 className="text-2xl font-semibold">Existing Faculty Members</h3>
+        {facultyList.length === 0 ? (
+          <p className="text-muted-foreground">No faculty data available.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {facultyList.map((faculty) => (
+              <Card key={faculty.id} className="p-4 shadow">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={faculty.photo || "https://via.placeholder.com/80"}
+                    alt={faculty.name}
+                    className="w-20 h-20 object-cover rounded-full"
+                  />
+                  <div>
+                    <h4 className="font-semibold text-lg">{faculty.name}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {faculty.position} – {faculty.department}
+                    </p>
+                    <p className="text-sm">{faculty.email}</p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => handleDelete(faculty.id)}
+                  variant="destructive"
+                  className="mt-4 w-full"
+                >
+                  <Trash2 className="w-4 h-4 mr-2" /> Delete
+                </Button>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

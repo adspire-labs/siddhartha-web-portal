@@ -18,9 +18,7 @@ export default function Gallery() {
 
   const getAllGalleryDataApi = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/gallery");
-      console.log(res);
-      
+      const res = await axios.get("http://localhost:3000/api/gallery");      
       // Access galleryData array from response
       setGalleryData(res.data.galleryData);
     } catch (error) {
