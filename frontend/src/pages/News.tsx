@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import heroImage from "@/assets/hero-students.jpg";
 import axios from "axios";
+import { apiEndpoint } from "../../apiEndpoint";
 
 export interface NewsItem {
   id: number;
@@ -69,7 +70,7 @@ export default function News() {
 
   const fetchNews = async () => {
     const res = (await axios.get(
-      "http://localhost:3000/api/news"
+      apiEndpoint.fetchNews
     )) as NewsResponse;
     setNewsList(res.data.newsData);
   };

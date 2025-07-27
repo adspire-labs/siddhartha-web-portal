@@ -15,6 +15,7 @@ import {
 import { UserPlus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { apiEndpoint } from "../../../apiEndpoint";
 
 interface FacultyMember {
   id: number;
@@ -101,7 +102,7 @@ export default function FacultyAdd() {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/faculty/add",
+        apiEndpoint.addfaculty,
         data,
         {
           headers: {
@@ -152,7 +153,7 @@ export default function FacultyAdd() {
   const fetchFaculty = async () => {
     try {
       const res = (await axios.get(
-        "http://localhost:3000/api/faculty"
+        apiEndpoint.fetchFaculty
       )) as FacultyApiResponse;
       setFacultyList(res.data.facultyData || []);
     } catch (error) {
@@ -162,7 +163,7 @@ export default function FacultyAdd() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.post(`http://localhost:3000/api/faculty/delete/${id}`,{id});
+      await axios.post(apiEndpoint.deleteFaculty(id),{id});
       toast({ title: "Deleted", description: "Faculty member deleted." });
       fetchFaculty();
     } catch (error) {

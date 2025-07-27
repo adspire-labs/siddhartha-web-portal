@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { apiEndpoint } from "../../../apiEndpoint";
 
 export interface NewsItem {
   id: number;
@@ -35,7 +36,7 @@ export const NewsForm = () => {
   const fetchNews = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/api/news") as NewsResponse;
+      const res = await axios.get(apiEndpoint.fetchNews) as NewsResponse;
       setNewsList(res.data.newsData);
     } catch (error) {
       toast.error("Failed to fetch news.");
@@ -52,7 +53,7 @@ export const NewsForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/news/add", {
+      await axios.post(apiEndpoint.addNews, {
         title,
         excerpt,
         category,
@@ -79,7 +80,7 @@ export const NewsForm = () => {
     if (!confirm("Are you sure you want to delete this news?")) return;
 
     try {
-      await axios.post(`http://localhost:3000/api/news/delete/${id}`,{id});
+      await axios.post(apiEndpoint.deleteNews(id),{id});
       toast.success("News deleted");
       fetchNews();
     } catch (error) {

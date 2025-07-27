@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { HeroSection } from "@/components/ui/hero-section";
 import { Camera, Play } from "lucide-react";
 import heroImage from "@/assets/hero-students.jpg";
+import {apiEndpoint} from '../../apiEndpoint'
 
 interface GalleryItem {
   id: number;
@@ -18,7 +19,7 @@ export default function Gallery() {
 
   const getAllGalleryDataApi = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/gallery");      
+      const res = await axios.get(apiEndpoint.fetchGallery);      
       // Access galleryData array from response
       setGalleryData(res.data.galleryData);
     } catch (error) {
