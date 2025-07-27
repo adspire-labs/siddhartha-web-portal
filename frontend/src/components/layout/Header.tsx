@@ -124,11 +124,11 @@ export const Header = () => {
             </div>
             <div className="hidden sm:block text-sm font-bold text-primary leading-tight whitespace-nowrap">
               <div>SIDDHARTHA</div>
-              <div className="text-xs font-normal">English Boarding School</div>
+              <div className="text-xs font-normal">English Boarding Seconday School</div>
             </div>
             <div className="sm:hidden text-xs font-bold text-primary whitespace-nowrap">
-              <div>SIDDHARTHA</div>
-              <div className="text-[10px] font-normal">ENGLISH BOARDING SCHOOL</div>
+              <div>SIDDHARTHA ENGLISH</div>
+              <div className="text-[10px] font-normal">BOARDING SECONDARY SCHOOL</div>
             </div>
           </Link>
 

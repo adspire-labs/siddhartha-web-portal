@@ -9,13 +9,26 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* School Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10">
-                <img src={logo} alt="Siddhartha School Logo" className="w-full h-full object-cover" />
+            <div className="flex items-start space-x-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 flex-shrink-0">
+                <img 
+                  src={logo} 
+                  alt="Siddhartha School Logo" 
+                  className="w-full h-full object-contain p-1" 
+                />
               </div>
-              <div className="text-lg font-bold">Siddhartha English Boarding Secondary School</div>
+              <div className="text-sm font-bold leading-tight">
+                <div className="hidden sm:block">
+                  <div>SIDDHARTHA SCHOOL</div>
+                  <div className="text-xs font-normal">English Boarding School</div>
+                </div>
+                <div className="sm:hidden">
+                  <div>SIDDHARTHA</div>
+                  <div className="text-[10px] font-normal">ENGLISH SCHOOL</div>
+                </div>
+              </div>
             </div>
-            <p className="text-primary-foreground/80 text-sm leading-relaxed">
+            <p className="text-primary-foreground/80 text-sm leading-relaxed mt-2">
               Enter to LEARN, Leave to SERVE. We provide quality education in a peaceful environment 
               for holistic development of our students.
             </p>
@@ -25,11 +38,11 @@ export const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {['About', 'Programs', 'Gallery', 'News & Notice', 'Contact'].map((link) => (
+              {['About', 'Programs', 'Gallery', 'News', 'Contact'].map((link) => (
                 <li key={link}>
                   <Link 
                     to={`/${link.toLowerCase().replace(' & ', '-').replace(' ', '-')}`}
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth text-sm"
+                    className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth text-sm block py-1"
                   >
                     {link}
                   </Link>
@@ -46,7 +59,7 @@ export const Footer = () => {
                 <li key={program}>
                   <Link 
                     to="/programs"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth text-sm"
+                    className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth text-sm block py-1"
                   >
                     {program}
                   </Link>
@@ -72,7 +85,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 flex-shrink-0" />
-                <span className="text-primary-foreground/80 text-sm">info@siddharthaschool.edu.np</span>
+                <span className="text-primary-foreground/80 text-sm">info@sebs.edu.np</span>
               </div>
             </div>
 
@@ -91,13 +104,13 @@ export const Footer = () => {
           </div>
         </div>
 
-       <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-  <p className="text-primary-foreground/60 text-sm">
-    © 2024 Siddhartha School. All rights reserved. | Education for All-Round Development
-    <br />
-    Powered by <a href="https://www.adspirelabs.com.np" target="_blank" rel="noopener noreferrer" className="hover:underline">Adspire Labs</a>
-  </p>
-</div>
+        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
+          <p className="text-primary-foreground/60 text-sm">
+            © 2024 Siddhartha School. All rights reserved. | Education for All-Round Development
+            <br />
+            Powered by <a href="https://www.adspirelabs.com.np" target="_blank" rel="noopener noreferrer" className="hover:underline">Adspire Labs</a>
+          </p>
+        </div>
       </div>
     </footer>
   );
