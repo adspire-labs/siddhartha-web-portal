@@ -80,7 +80,7 @@ export const Header = () => {
               <img src={logo} alt="Siddhartha School Logo" className="w-full h-full object-cover" />
             </div>
             <div className="text-lg font-bold text-primary">
-              SEBS
+              SIDDHARTHA SCHOOL
             </div>
           </Link>
 
