@@ -38,7 +38,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
         >
-          Siddhartha School
+          Siddhartha School English Boarding School
         </motion.h2>
         <motion.p
           className="text-muted-foreground"
