@@ -14,7 +14,7 @@ const leaders = [
     id: 1,
     name: "Yam Bahadur Rana",
     designation: "Principal",
-    message: "We can proudly say that we have laid strong foundation for the students which have enabled them to excel in different fields. This would not have been possible without commitment and the dedication of the promoters, faith and support of the guardians and the active co-operation of the staff. I would like to express my sincere gratitude to them.",
+    message: "It is truly rewarding to witness our students thriving in various areas, a reflection of the academic strength and values instilled during their time with us. This success would not have been achievable without the dedication of our teaching and non-teaching staff, the trust of our guardians, and the constant support of our management team. I sincerely thank everyone for their role in nurturing a vibrant and disciplined learning environment. Let us continue this journey with the same passion and commitment",
     image: principalImage
   },
   {
