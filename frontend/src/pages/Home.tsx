@@ -49,13 +49,6 @@ const features = [
   }
 ];
 
-const stats = [
-  { number: '25+', label: 'Years of Excellence' },
-  { number: '500+', label: 'Happy Students' },
-  { number: '50+', label: 'Expert Teachers' },
-  { number: '95%', label: 'Success Rate' }
-];
-
 const programs = [
   {
     title: 'Early Childhood',
@@ -139,31 +132,7 @@ export default function Home() {
         </HeroSection>
       </motion.div>
 
-      {/* ====================== FIXED STATS SECTION ====================== */}
-      {/* Stats Section - Updated with visibility fix */}
-      <section className="py-16 bg-primary text-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div 
-                key={index} 
-                className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-3xl lg:text-4xl font-bold mb-2">{stat.number}</div>
-                <div>{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ====================== END FIXED SECTION ====================== */}
-
-      {/* Features Section - Fixed */}
+      {/* Features Section */}
 <section className="py-20">
   <div className="container mx-auto px-4">
     <motion.div
