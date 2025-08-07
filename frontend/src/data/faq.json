@@ -1,0 +1,89 @@
+{
+  "faqs": [
+    {
+      "id": 0,
+      "keywords": ["hello", "hi", "hey", "namaste", "greetings", "good morning", "good afternoon", "good evening"],
+      "question": "Hello!",
+      "answer": "Namaste! How can I assist you today? You can ask about admissions, location, contact, facilities, curriculum, and more."
+    },
+    {
+      "id": 1,
+      "keywords": ["admission", "apply", "entrance test", "nursery", "grade", "enroll"],
+      "question": "How do I apply for admission?",
+      "answer": "Admissions at SEBS are based on seat availability. Nursery admission opens in the second week of April, and other grades in the third week. Applicants (except Nursery) must take an entrance test and submit mark sheet, transfer certificate, character certificate, and two passport-size photos."
+    },
+    {
+      "id": 2,
+      "keywords": ["location", "address", "where", "where are you located"],
+      "question": "Where is SEBS located?",
+      "answer": "Siddhartha English Boarding Secondary School is located in Shankarnagar, Tilottama‑4, Rupandehi, Nepal."
+    },
+    {
+      "id": 3,
+      "keywords": ["contact", "phone", "email", "reach", "inquire"],
+      "question": "How can I contact SEBS?",
+      "answer": "You can call us at +977‑071‑420200 or +977‑071‑420092, or email info@sebs.edu.np for inquiries."
+    },
+    {
+      "id": 4,
+      "keywords": ["curriculum", "syllabus", "medium", "education system"],
+      "question": "What curriculum do you follow?",
+      "answer": "We follow the curriculum set by Nepal’s Ministry of Education, with some enhancements to meet national and international standards. Our medium of instruction is English, except for Nepali and Social Studies subjects."
+    },
+    {
+      "id": 5,
+      "keywords": ["playground", "sports", "facilities", "games", "sports facilities"],
+      "question": "What sports facilities are available?",
+      "answer": "SEBS has ample space with a football ground, basketball court, lawn tennis court, badminton court, and volleyball court, and also accommodates athletics and cricket."
+    },
+    {
+      "id": 6,
+      "keywords": ["history", "established", "founded", "establishment year"],
+      "question": "When was SEBS established?",
+      "answer": "Siddhartha English Boarding Secondary School was established in 2036 B.S. (approximately 1979 A.D.) in Shankarnagar, Tilottama‑4, Rupandehi, with the mission of imparting quality education to aspiring students."
+    },
+    {
+      "id": 7,
+      "keywords": ["school hours", "timings", "school time", "schedule"],
+      "question": "What are the school hours?",
+      "answer": "Our school operates from Sunday to Friday, 10 AM to 4 PM. Saturdays remain closed."
+    },
+    {
+      "id": 8,
+      "keywords": ["rules", "regulations", "uniform", "gadgets", "parents", "visiting", "diary"],
+      "question": "What are the parent and student guidelines?",
+      "answer": "Parents and students must follow school regulations including proper uniform, no jewelry or electronic gadgets, punctuality, maintaining the school diary, attending PTMs, and prior appointment for meetings. Parents should also regularly monitor homework and revise at home."
+    },
+    
+    {
+      "id": 9,
+      "keywords": ["team", "who works", "experts", "staff", "people"],
+      "question": "Who is behind Adspire Labs?",
+      "answer": "We are a team of passionate developers, marketers, designers, and content creators focused on helping businesses grow digitally."
+    },
+    {
+      "id": 10,
+      "keywords": ["tech", "tools", "technologies", "stack", "framework"],
+      "question": "What technologies do you use?",
+      "answer": "We use modern tools like React, Next.js, Tailwind CSS, WordPress, Adobe Creative Suite, and advanced marketing tools like Meta Ads Manager and Google Analytics."
+    },
+    {
+      "id": 11,
+      "keywords": ["support", "help", "issue", "problem", "bug"],
+      "question": "How do I get support?",
+      "answer": "You can reach us via Messenger or WhatsApp for technical or project-related support. We're available 7 days a week during business hours."
+    },
+    {
+      "id": 12,
+      "keywords": ["social", "facebook", "instagram", "linkedin"],
+      "question": "Where can I follow you on social media?",
+      "answer": "You can follow us on [Facebook](https://facebook.com/adspirelabs), [Instagram](https://instagram.com/adspirelabs), and [LinkedIn](https://linkedin.com/company/adspirelabs) for updates, projects, and tips."
+    }
+
+  ],
+  "defaultResponses": {
+    "welcome": "Welcome to SEBS Assistant! How can I help you today? You can ask about admissions, curriculum, facilities, contact details, and more.",
+    "notFound": "Sorry, I couldn't find an answer to that. Try asking about admissions, programs, facilities, contact, or say 'Talk to a person' for direct assistance.",
+    "talkToPerson": "I’d be happy to connect you with our school team! Please choose how you'd like to reach us:"
+  }
+}

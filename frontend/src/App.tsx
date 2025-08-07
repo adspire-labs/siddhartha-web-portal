@@ -15,6 +15,7 @@ import Gallery from "./pages/Gallery";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Chatbot from "./components/Chatbot";
 
 // About sub-pages
 import Introduction from "./pages/about/Introduction";
@@ -67,6 +68,7 @@ const App = () => {
                 <Route path="/about/faculty" element={<Faculty />} />
                 <Route path="/about/alumni-parents" element={<AlumniParents />} />
                 <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
+                
 
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/programs/science" element={<Science />} />
@@ -80,6 +82,7 @@ const App = () => {
               </Routes>
             </main>
             <Footer />
+            <Chatbot />
           </div>
           <ScrollToTopButton />
         </BrowserRouter>
