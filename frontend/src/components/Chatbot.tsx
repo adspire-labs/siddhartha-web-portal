@@ -109,7 +109,7 @@ const Chatbot = () => {
     }
 
     if (text === "WhatsApp") {
-      const phoneNumber = "9779876543210"; // Replace with your WhatsApp number
+      const phoneNumber = "9779857033108"; // Replace with your WhatsApp number
       const whatsappMessage = "Hi! I'd like to get more information about your services.";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       
