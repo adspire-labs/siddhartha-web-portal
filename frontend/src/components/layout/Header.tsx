@@ -15,6 +15,7 @@ const navigation = [
       { name: 'Introduction', href: '/about/introduction' },
       { name: 'Our History', href: '/about/history' },
       { name: 'Our Faculty', href: '/about/faculty' },
+      { name: 'Alumni & Parents', href: '/about/alumni-parents' },
     ]
   },
   { 

@@ -6,6 +6,7 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { LoadingScreen } from '@/components/ui/loading-screen';
 import { NoticeOverlay } from '@/components/ui/notice-overlay';
 import { LeadershipSlider } from '@/components/ui/leadership-slider';
+import { StudentsSlider } from '@/components/ui/student-slider';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { Link } from 'react-router-dom';
 import { 
@@ -281,7 +282,7 @@ export default function Home() {
             {/* Management Stream Card */}
             <Card className="p-6 shadow-card hover:shadow-elegant transition-smooth">
               <div className="mb-4">
-                <div className="text-sm font-medium text-green-600 mb-2 flex items-center">
+                <div className="text-sm font-medium text-blue-600 mb-2 flex items-center">
                   <Lightbulb className="w-4 h-4 mr-2" />
                   BUSINESS & COMMERCE
                 </div>
@@ -293,19 +294,19 @@ export default function Home() {
               
               <div className="space-y-2 mb-6">
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
                   <span className="text-sm">Business Studies & Accountancy</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
                   <span className="text-sm">Economics & Entrepreneurship</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
                   <span className="text-sm">Financial Literacy Programs</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-blue-500 flex-shrink-0" />
                   <span className="text-sm">Industry Visits & Internships</span>
                 </div>
               </div>
@@ -358,6 +359,7 @@ export default function Home() {
 
       {/* Leadership Messages Section */}
       <LeadershipSlider />
+     
 
       {/* YouTube Video Modal */}
       <AnimatePresence>

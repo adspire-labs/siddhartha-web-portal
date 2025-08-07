@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import Introduction from "./pages/about/Introduction";
 import History from "./pages/about/History";
 import Faculty from "./pages/about/Faculty";
+import AlumniParents from './pages/about/alumni-parents';
 
 // Programs sub-pages
 import Science from "./pages/programs/Science";
@@ -64,6 +65,7 @@ const App = () => {
                 <Route path="/about/introduction" element={<Introduction />} />
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
+                <Route path="/about/alumni-parents" element={<AlumniParents />} />
                 <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
 
                 <Route path="/programs" element={<Programs />} />
