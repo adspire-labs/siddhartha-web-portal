@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { X, MessageCircle, Send, User, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,27 +28,22 @@ const Chatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
-  useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      // Add welcome message when chatbot first opens
-      addBotMessage(faqData.defaultResponses.welcome, true, [
-        "What are your services?",
-        "Do you offer courses?",
-        "How can I contact you?",
-        "Talk to a person"
-      ]);
-    }
-  }, [isOpen]);
+  const faqOptions = useMemo(() => [
+    "What are your services?",
+    "Do you offer courses?",
+    "How can I contact you?",
+    "Talk to a person"
+  ], []);
 
-  const addBotMessage = (text: string, isOptions: boolean = false, options: string[] = []) => {
+  const addBotMessage = useCallback((text: string, isOptions: boolean = false, options: string[] = []) => {
     setIsTyping(true);
     setTimeout(() => {
       const newMessage: Message = {
@@ -62,9 +57,9 @@ const Chatbot = () => {
       setMessages(prev => [...prev, newMessage]);
       setIsTyping(false);
     }, 500);
-  };
+  }, []);
 
-  const addUserMessage = (text: string) => {
+  const addUserMessage = useCallback((text: string) => {
     const newMessage: Message = {
       id: Date.now(),
       text,
@@ -72,16 +67,16 @@ const Chatbot = () => {
       timestamp: new Date()
     };
     setMessages(prev => [...prev, newMessage]);
-  };
+  }, []);
 
-  const findFAQMatch = (userInput: string): FAQ | null => {
+  const findFAQMatch = useCallback((userInput: string): FAQ | null => {
     const input = userInput.toLowerCase();
     return faqData.faqs.find(faq =>
       faq.keywords.some(keyword => input.includes(keyword.toLowerCase()))
     ) || null;
-  };
+  }, []);
 
-  const handleSendMessage = (messageText?: string) => {
+  const handleSendMessage = useCallback((messageText?: string) => {
     const text = messageText || inputValue.trim();
     if (!text) return;
 
@@ -109,7 +104,7 @@ const Chatbot = () => {
     }
 
     if (text === "WhatsApp") {
-      const phoneNumber = "9779857033108"; // Replace with your WhatsApp number
+      const phoneNumber = "9779857033108";
       const whatsappMessage = "Hi! I'd like to get more information about your services.";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       
@@ -119,28 +114,25 @@ const Chatbot = () => {
         ["Open WhatsApp", "Back to FAQ"]
       );
       
-      // Auto-open WhatsApp after a short delay
       setTimeout(() => {
         window.open(whatsappUrl, '_blank');
       }, 1000);
       return;
     }
 
-    // Handle contact platform actions
     if (text === "Open Messenger") {
-      // Initialize Facebook Messenger Customer Chat Plugin
       const fb = (window as any).FB;
       if (fb && fb.CustomerChat) {
         fb.CustomerChat.showDialog();
       } else {
-        window.open('https://m.me/your-page-id', '_blank'); // Replace with your Facebook page ID
+        window.open('https://m.me/your-page-id', '_blank');
       }
       addBotMessage("Opening Facebook Messenger... If it didn't open automatically, please check your popup blocker.");
       return;
     }
 
     if (text === "Open WhatsApp") {
-      const phoneNumber = "9779876543210"; // Replace with your WhatsApp number
+      const phoneNumber = "9779876543210";
       const whatsappMessage = "Hi! I'd like to get more information about your services.";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       window.open(whatsappUrl, '_blank');
@@ -149,17 +141,10 @@ const Chatbot = () => {
     }
 
     if (text === "Back to FAQ") {
-      addBotMessage(faqData.defaultResponses.welcome, true, [
-        "What are your services?",
-        "Where are you located?",
-        "Do you offer courses?",
-        "How can I contact you?",
-        "Talk to a person"
-      ]);
+      addBotMessage(faqData.defaultResponses.welcome, true, faqOptions);
       return;
     }
 
-    // Search for FAQ match
     const faqMatch = findFAQMatch(text);
     
     if (faqMatch) {
@@ -175,31 +160,31 @@ const Chatbot = () => {
         "Talk to a person"
       ]);
     }
-  };
+  }, [inputValue, addUserMessage, addBotMessage, findFAQMatch, faqOptions]);
 
-  const handleOptionClick = (option: string) => {
+  const handleOptionClick = useCallback((option: string) => {
     if (option === "Ask another question") {
-      addBotMessage("What else would you like to know?", true, [
-        "What are your services?",
-        "Where are you located?",
-        "Do you offer courses?",
-        "How can I contact you?",
-        "Talk to a person"
-      ]);
+      addBotMessage("What else would you like to know?", true, faqOptions);
     } else if (option === "Close chat") {
       setIsOpen(false);
     } else {
       handleSendMessage(option);
     }
-  };
+  }, [addBotMessage, handleSendMessage, faqOptions]);
 
-  const formatTime = (date: Date) => {
+  const formatTime = useCallback((date: Date) => {
     return date.toLocaleTimeString('en-US', { 
       hour: '2-digit', 
       minute: '2-digit',
       hour12: true 
     });
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      addBotMessage(faqData.defaultResponses.welcome, true, faqOptions);
+    }
+  }, [isOpen, messages.length, addBotMessage, faqOptions]);
 
   if (!isOpen) {
     return (
@@ -259,7 +244,6 @@ const Chatbot = () => {
                         <p className="text-sm">{message.text}</p>
                       </div>
                       
-                      {/* Options */}
                       {message.isOptions && message.options && (
                         <div className="space-y-1">
                           {message.options.map((option, index) => (
@@ -290,7 +274,6 @@ const Chatbot = () => {
               </div>
             ))}
             
-            {/* Typing indicator */}
             {isTyping && (
               <div className="flex justify-start fade-in">
                 <div className="flex items-start gap-2">
@@ -339,4 +322,4 @@ const Chatbot = () => {
   );
 };
 
-export default Chatbot;
+export default React.memo(Chatbot);

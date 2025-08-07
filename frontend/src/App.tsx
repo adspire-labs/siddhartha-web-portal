@@ -22,6 +22,7 @@ import Introduction from "./pages/about/Introduction";
 import History from "./pages/about/History";
 import Faculty from "./pages/about/Faculty";
 import AlumniParents from './pages/about/alumni-parents';
+import Leaders from './pages/about/Leaders';
 
 // Programs sub-pages
 import Science from "./pages/programs/Science";
@@ -67,6 +68,7 @@ const App = () => {
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
                 <Route path="/about/alumni-parents" element={<AlumniParents />} />
+                <Route path="/about/leaders" element={<Leaders />} />
                 <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
                 
 

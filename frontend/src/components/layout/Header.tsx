@@ -13,9 +13,11 @@ const navigation = [
     href: '/about',
     subPages: [
       { name: 'Introduction', href: '/about/introduction' },
+        { name: 'Message from Leaders', href: '/about/leaders' },
       { name: 'Our History', href: '/about/history' },
       { name: 'Our Faculty', href: '/about/faculty' },
       { name: 'Alumni & Parents', href: '/about/alumni-parents' },
+    
     ]
   },
   { 

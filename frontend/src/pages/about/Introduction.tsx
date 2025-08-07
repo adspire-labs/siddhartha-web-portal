@@ -6,6 +6,7 @@ import { BookOpen, Target, Heart, Award, Users, Globe } from 'lucide-react';
 import schoolBuilding from '@/assets/school-building.jpg';
 
 export default function Introduction() {
+  
 
   const keyPoints = [
     {

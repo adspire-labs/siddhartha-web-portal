@@ -358,7 +358,35 @@ export default function Home() {
       </section>
 
       {/* Leadership Messages Section */}
-      <LeadershipSlider />
+<section className="py-20 bg-muted/30">
+  <div className="container mx-auto px-4">
+    <div className="flex flex-col lg:flex-row items-center justify-between">
+      <div className="mb-8 lg:mb-0 max-w-xl">
+        <h2 className="text-3xl lg:text-4xl font-bold mb-4">Message from Leadership</h2>
+        <p className="text-muted-foreground mb-6">
+          Discover insights, values, and vision from our esteemed school leaders.
+        </p>
+        <Link to="/about/leaders">
+          <Button className="shadow-card">
+            Read Messages
+            <ArrowRight className="w-4 h-4 ml-2" />
+          </Button>
+        </Link>
+      </div>
+      <div className="relative w-full max-w-lg">
+        <img 
+          src={schoolBuilding} 
+          alt="Leadership"
+          className="rounded-lg shadow-elegant"
+        />
+        <div className="absolute bottom-4 right-4 bg-primary text-white text-sm px-3 py-1 rounded-full shadow">
+          Words from our Leaders
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
      
 
       {/* YouTube Video Modal */}
