@@ -23,26 +23,35 @@ import History from "./pages/about/History";
 import Faculty from "./pages/about/Faculty";
 import AlumniParents from './pages/about/alumni-parents';
 import Leaders from './pages/about/Leaders';
+import ManagementCommittee from './pages/about/Management-Committe';
 
 // Programs sub-pages
 import Science from "./pages/programs/Science";
 import Management from "./pages/programs/Management";
+
+// Facilities pages (new)
+import WellEquippedLabsAndLibrary from "./pages/facilities/WellEquippedLabsAndLibrary";
+import PlayGround from "./pages/facilities/PlayGround";
+import Transportation from "./pages/facilities/Transportation";
+import Cafeteria from "./pages/facilities/Cafeteria";
+import ProjectorHallAndAudioVisualRoom from "./pages/facilities/ProjectorHallAndAudioVisualRoom";
+import ExcursionAndFieldVisits from "./pages/facilities/ExcursionAndFieldVisits";
+import Hostel from "./pages/facilities/Hostel";
+
 import { NewsForm } from "./components/ui/NewsForm";
-import FacultyPage from "./pages/about/FacultyAdd";
 import FacultyAdd from "./pages/about/FacultyAdd";
 import GalleryUpload from "./pages/GalleryForm";
 import Dashboard from "./components/ui/Dashboard";
 
 const queryClient = new QueryClient();
 
-// Component to handle scroll to top on route change
 function ScrollToTop() {
   const location = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
   return null;
 }
 
@@ -62,24 +71,44 @@ const App = () => {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path='/Optimistic@2082' element={<Dashboard/>}/>
+                <Route path='/Optimistic@2082' element={<Dashboard />} />
+
+                {/* About and its subpages */}
                 <Route path="/about" element={<About />} />
                 <Route path="/about/introduction" element={<Introduction />} />
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
                 <Route path="/about/alumni-parents" element={<AlumniParents />} />
                 <Route path="/about/leaders" element={<Leaders />} />
+                <Route path="/about/management-committee" element={<ManagementCommittee />} />
                 <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
-                
 
+                {/* Programs */}
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/programs/science" element={<Science />} />
                 <Route path="/programs/management" element={<Management />} />
+
+                {/* Facilities and its subpages */}
+                <Route path="/facilities/wellequippedlabsandlibrary" element={<WellEquippedLabsAndLibrary />} />
+                <Route path="/facilities/playground" element={<PlayGround />} />
+                <Route path="/facilities/transportation" element={<Transportation />} />
+                <Route path="/facilities/cafeteria" element={<Cafeteria />} />
+                <Route path="/facilities/projectorhallandaudiovisualroom" element={<ProjectorHallAndAudioVisualRoom />} />
+                <Route path="/facilities/excursionandfieldvisits" element={<ExcursionAndFieldVisits />} />
+                <Route path="/facilities/hostel" element={<Hostel />} />
+
+                {/* Gallery */}
                 <Route path="/gallery" element={<Gallery />} />
-                <Route path='/dashboard/gallery/Optimistic@2082' element={<GalleryUpload/>}/>
+                <Route path='/dashboard/gallery/Optimistic@2082' element={<GalleryUpload />} />
+
+                {/* News */}
                 <Route path="/news" element={<News />} />
-                <Route path="/dashboard/news/Optimistic@2082" element={<NewsForm/>}/>
+                <Route path="/dashboard/news/Optimistic@2082" element={<NewsForm />} />
+
+                {/* Contact */}
                 <Route path="/contact" element={<Contact />} />
+
+                {/* Not Found */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </main>

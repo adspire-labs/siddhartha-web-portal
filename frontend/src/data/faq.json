@@ -3,87 +3,92 @@
     {
       "id": 0,
       "keywords": ["hello", "hi", "hey", "namaste", "greetings", "good morning", "good afternoon", "good evening"],
-      "question": "Hello!",
-      "answer": "Namaste! How can I assist you today? You can ask about admissions, location, contact, facilities, curriculum, and more."
+      "question": "Greetings",
+      "answer": "Namaste! 🙏 I'm delighted to connect with you. I'm SEBS Assistant, your AI guide to Siddhartha English Boarding School. Whether you're curious about admissions, academics, or our facilities, I'm here to provide all the details you need. What would you like to know today?"
     },
     {
       "id": 1,
-      "keywords": ["admission", "apply", "entrance test", "nursery", "grade", "enroll"],
-      "question": "How do I apply for admission?",
-      "answer": "Admissions at SEBS are based on seat availability. Nursery admission opens in the second week of April, and other grades in the third week. Applicants (except Nursery) must take an entrance test and submit mark sheet, transfer certificate, character certificate, and two passport-size photos."
+      "keywords": ["admission", "apply", "entrance test", "nursery", "grade", "enroll", "join"],
+      "question": "Admissions Process",
+      "answer": "We're thrilled you're considering SEBS for your educational journey! 🎓 Here's our admission process:\n\n• For Nursery: Admissions open every year in the second week of April\n• For other grades: Admissions begin in the third week of April\n\nApplicants (except Nursery) complete an entrance test to assess their current level. Required documents include:\n- Most recent mark sheet\n- Transfer certificate\n- Character certificate\n- Two passport-size photos\n\nWould you like more specific details about any particular grade level?"
     },
     {
       "id": 2,
-      "keywords": ["location", "address", "where", "where are you located"],
-      "question": "Where is SEBS located?",
-      "answer": "Siddhartha English Boarding Secondary School is located in Shankarnagar, Tilottama‑4, Rupandehi, Nepal."
+      "keywords": ["location", "address", "where", "map", "directions"],
+      "question": "School Location",
+      "answer": "📍 You'll find our beautiful campus at:\nSiddhartha English Boarding Secondary School\nShankarnagar, Tilottama-4\nRupandehi, Nepal\n\nWe're conveniently located with excellent transportation access. The campus features modern facilities amidst a peaceful learning environment. Planning to visit us soon? I can share more about what you'll see when you arrive!"
     },
     {
       "id": 3,
-      "keywords": ["contact", "phone", "email", "reach", "inquire"],
-      "question": "How can I contact SEBS?",
-      "answer": "You can call us at +977‑071‑420200 or +977‑071‑420092, or email info@sebs.edu.np for inquiries."
+      "keywords": ["contact", "phone", "email", "reach", "inquire", "number"],
+      "question": "Contact Information",
+      "answer": "We'd love to hear from you! Here are the best ways to connect with SEBS:\n\n📞 Phone: +977-071-420200 or +977-071-420092\n✉️ Email: info@sebs.edu.np\n\nOur administrative team is available Sunday-Friday from 9 AM to 4 PM. For immediate assistance, I recommend calling during these hours. Would you like me to connect you directly with a specific department?"
     },
     {
       "id": 4,
-      "keywords": ["curriculum", "syllabus", "medium", "education system"],
-      "question": "What curriculum do you follow?",
-      "answer": "We follow the curriculum set by Nepal’s Ministry of Education, with some enhancements to meet national and international standards. Our medium of instruction is English, except for Nepali and Social Studies subjects."
+      "keywords": ["curriculum", "syllabus", "medium", "education system", "subjects", "academics"],
+      "question": "Academic Curriculum",
+      "answer": "At SEBS, we take great pride in our comprehensive academic program 📚:\n\n• Follows Nepal's Ministry of Education curriculum\n• Enhanced to meet national and international standards\n• Primary medium: English (except Nepali & Social Studies)\n\nOur approach balances rigorous academics with practical learning experiences. We particularly emphasize:\n- Critical thinking development\n- STEM education\n- Language proficiency\n- Cultural awareness\n\nWould you like details about a specific grade's curriculum?"
     },
     {
       "id": 5,
-      "keywords": ["playground", "sports", "facilities", "games", "sports facilities"],
-      "question": "What sports facilities are available?",
-      "answer": "SEBS has ample space with a football ground, basketball court, lawn tennis court, badminton court, and volleyball court, and also accommodates athletics and cricket."
+      "keywords": ["playground", "sports", "facilities", "games", "sports facilities", "athletics"],
+      "question": "Sports Facilities",
+      "answer": "Sports are a vibrant part of life at SEBS! 🏅 Our expansive campus features:\n\n• Full-sized football ground\n• Basketball court\n• Lawn tennis court\n• Badminton court\n• Volleyball court\n• Cricket pitch\n• Athletics track\n\nWe encourage all students to participate in sports for physical fitness and teamwork development. Several of our students have competed at regional and national levels! Would you like information about our sports programs?"
     },
     {
       "id": 6,
-      "keywords": ["history", "established", "founded", "establishment year"],
-      "question": "When was SEBS established?",
-      "answer": "Siddhartha English Boarding Secondary School was established in 2036 B.S. (approximately 1979 A.D.) in Shankarnagar, Tilottama‑4, Rupandehi, with the mission of imparting quality education to aspiring students."
+      "keywords": ["history", "established", "founded", "establishment year", "about", "background"],
+      "question": "School History",
+      "answer": "SEBS has a rich legacy in education since 2036 B.S. (1979 A.D.) 🏛️. Founded in Shankarnagar, Tilottama-4, Rupandehi, our school was established with the vision of providing quality education that:\n\n• Nurtures intellectual curiosity\n• Develops moral character\n• Prepares students for global challenges\n\nOver four decades, we've grown into one of the region's most respected institutions while maintaining our commitment to individual student development. Would you like to know more about our educational philosophy?"
     },
     {
       "id": 7,
-      "keywords": ["school hours", "timings", "school time", "schedule"],
-      "question": "What are the school hours?",
-      "answer": "Our school operates from Sunday to Friday, 10 AM to 4 PM. Saturdays remain closed."
+      "keywords": ["school hours", "timings", "school time", "schedule", "opening", "closing"],
+      "question": "School Hours",
+      "answer": "Here's our weekly schedule for your planning 🕒:\n\n• Operating Days: Sunday to Friday\n• School Hours: 10 AM to 4 PM\n• Closed: Saturdays and public holidays\n\nWe've designed this schedule to optimize learning while ensuring students have adequate time for extracurricular activities and rest. The school calendar includes special events throughout the year - would you like me to share upcoming important dates?"
     },
     {
       "id": 8,
-      "keywords": ["rules", "regulations", "uniform", "gadgets", "parents", "visiting", "diary"],
-      "question": "What are the parent and student guidelines?",
-      "answer": "Parents and students must follow school regulations including proper uniform, no jewelry or electronic gadgets, punctuality, maintaining the school diary, attending PTMs, and prior appointment for meetings. Parents should also regularly monitor homework and revise at home."
+      "keywords": ["rules", "regulations", "uniform", "gadgets", "parents", "visiting", "diary", "policy"],
+      "question": "School Policies",
+      "answer": "To maintain our excellent learning environment, we have these important guidelines 📝:\n\nFor Students:\n• Proper uniform required daily\n• No jewelry or electronic gadgets\n• Punctuality is essential\n• School diary must be maintained\n\nFor Parents:\n• Regular homework monitoring\n• Attendance at PTMs\n• Prior appointments for meetings\n\nThese policies help ensure all students can focus on their education in a supportive atmosphere. Would you like the complete parent handbook?"
     },
-    
     {
       "id": 9,
-      "keywords": ["team", "who works", "experts", "staff", "people"],
-      "question": "Who is behind Adspire Labs?",
-      "answer": "We are a team of passionate developers, marketers, designers, and content creators focused on helping businesses grow digitally."
+      "keywords": ["faculty", "teachers", "staff", "qualifications", "educators"],
+      "question": "Our Faculty",
+      "answer": "Our greatest strength is our exceptional teaching team 👩‍🏫👨‍🏫:\n\n• Highly qualified educators\n• Continuous professional development\n• Student-centered teaching approach\n• Average 10+ years of experience\n\nMany faculty members hold advanced degrees and specialize in their subject areas. They're deeply committed to each student's success. Would you like information about a specific department's teachers?"
     },
     {
       "id": 10,
-      "keywords": ["tech", "tools", "technologies", "stack", "framework"],
-      "question": "What technologies do you use?",
-      "answer": "We use modern tools like React, Next.js, Tailwind CSS, WordPress, Adobe Creative Suite, and advanced marketing tools like Meta Ads Manager and Google Analytics."
+      "keywords": ["library", "books", "reading", "resources"],
+      "question": "Library Resources",
+      "answer": "Our library is a treasure trove of knowledge 📖, featuring:\n\n• 15,000+ book collection\n• Digital resources\n• Quiet study areas\n• Research assistance\n\nWe regularly update our collections to support both curriculum needs and personal reading interests. Students have weekly library periods and can check out books. Would you like to know about our reading programs?"
     },
     {
       "id": 11,
-      "keywords": ["support", "help", "issue", "problem", "bug"],
-      "question": "How do I get support?",
-      "answer": "You can reach us via Messenger or WhatsApp for technical or project-related support. We're available 7 days a week during business hours."
+      "keywords": ["transportation", "bus", "commute", "pickup", "drop"],
+      "question": "Transportation Services",
+      "answer": "We offer safe, reliable transportation options 🚌:\n\n• Fleet of modern school buses\n• Covered pickup/drop points across region\n• Trained drivers and attendants\n• GPS-tracked vehicles\n\nRoutes are designed for maximum convenience while ensuring student safety. Would you like information about routes or fees?"
     },
     {
       "id": 12,
-      "keywords": ["social", "facebook", "instagram", "linkedin"],
-      "question": "Where can I follow you on social media?",
-      "answer": "You can follow us on [Facebook](https://facebook.com/adspirelabs), [Instagram](https://instagram.com/adspirelabs), and [LinkedIn](https://linkedin.com/company/adspirelabs) for updates, projects, and tips."
+      "keywords": ["events", "activities", "programs", "extracurricular"],
+      "question": "School Events",
+      "answer": "Beyond academics, SEBS buzzes with exciting activities 🎭🎨:\n\nAnnual Highlights:\n• Science Exhibition\n• Literary Festival\n• Sports Day\n• Cultural Program\n\nRegular Activities:\n• Debate Club\n• Art Workshops\n• Music Classes\n• Community Service\n\nThese programs help students discover new talents and interests. Would you like details about upcoming events?"
     }
-
   ],
   "defaultResponses": {
-    "welcome": "Welcome to SEBS Assistant! How can I help you today? You can ask about admissions, curriculum, facilities, contact details, and more.",
-    "notFound": "Sorry, I couldn't find an answer to that. Try asking about admissions, programs, facilities, contact, or say 'Talk to a person' for direct assistance.",
-    "talkToPerson": "I’d be happy to connect you with our school team! Please choose how you'd like to reach us:"
+    "welcome": "Hello! I'm SEBS Assistant, your AI guide to Siddhartha English Boarding School. I can help with admissions, academics, facilities, and more. To get started, may I know your name?",
+    "notFound": "That's an excellent question! While I have extensive information about SEBS, for this specific query I'd recommend:\n\n1. Checking our website's FAQ section\n2. Contacting our administration directly\n3. Or I can connect you with a staff member\n\nHow would you like to proceed?",
+    "talkToPerson": "I'd be delighted to connect you with our school team! Here are your options for direct assistance:",
+    "nameReceived": "Wonderful to meet you, {name}! How can I assist you today? You might ask about:\n- Admission procedures\n- Academic programs\n- School facilities\n- Or any other questions about SEBS"
+  },
+  "specialFeatures": {
+    "personalization": true,
+    "followUpQuestions": true,
+    "contextAware": true,
+    "multiLingualSupport": false
   }
 }

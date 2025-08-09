@@ -3,7 +3,6 @@ import { HeroSection } from '@/components/ui/hero-section';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { 
   TrendingUp, 
   BarChart3, 
@@ -15,14 +14,12 @@ import {
   ArrowRight,
   Target,
   Award,
-  BookOpen,
   Briefcase
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import heroImage from '@/assets/hero-students.jpg';
 
 export default function Management() {
-
   const subjects = [
     {
       name: 'Accountancy',
@@ -88,7 +85,7 @@ export default function Management() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 overflow-x-hidden">
       <HeroSection
         subtitle="Management Stream"
         title="Shape Your Business Future"
@@ -122,7 +119,7 @@ export default function Management() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300">
+              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300 w-full max-w-md mx-auto md:max-w-none">
                 <Clock className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-semibold mb-2">Duration</h3>
                 <p className="text-muted-foreground">2 Years (Grade XI-XII)</p>
@@ -135,7 +132,7 @@ export default function Management() {
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300">
+              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300 w-full max-w-md mx-auto md:max-w-none">
                 <Users className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-semibold mb-2">Class Size</h3>
                 <p className="text-muted-foreground">35 Students Maximum</p>
@@ -148,7 +145,7 @@ export default function Management() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300">
+              <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300 w-full max-w-md mx-auto md:max-w-none">
                 <Award className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-semibold mb-2">Exam Board</h3>
                 <p className="text-muted-foreground">NEB (National Examination Board)</p>
@@ -184,9 +181,9 @@ export default function Management() {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02 }}
               >
-                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full">
+                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full w-full max-w-md mx-auto md:max-w-none">
                   <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 rounded-full hero-gradient flex items-center justify-center">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full hero-gradient flex items-center justify-center">
                       <subject.icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-bold">{subject.name}</h3>
@@ -234,7 +231,7 @@ export default function Management() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full">
+                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full w-full max-w-md mx-auto md:max-w-none">
                   <h3 className="text-lg font-bold mb-4 text-primary">{path.category}</h3>
                   <div className="space-y-2">
                     {path.careers.map((career, careerIndex) => (
@@ -261,7 +258,7 @@ export default function Management() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Card className="p-8 shadow-card h-full">
+              <Card className="p-8 shadow-card h-full w-full max-w-md mx-auto lg:max-w-none">
                 <h3 className="text-2xl font-bold mb-6 flex items-center">
                   <Building2 className="w-6 h-6 mr-3 text-primary" />
                   Business Facilities
@@ -283,7 +280,7 @@ export default function Management() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Card className="p-8 shadow-card h-full">
+              <Card className="p-8 shadow-card h-full w-full max-w-md mx-auto lg:max-w-none">
                 <h3 className="text-2xl font-bold mb-6 flex items-center">
                   <Target className="w-6 h-6 mr-3 text-primary" />
                   Program Highlights
@@ -334,7 +331,7 @@ export default function Management() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full">
+                <Card className="p-6 shadow-card hover:shadow-elegant transition-all duration-300 h-full w-full max-w-md mx-auto md:max-w-none">
                   <h3 className="text-lg font-bold mb-3">{skill.skill}</h3>
                   <p className="text-muted-foreground text-sm">{skill.description}</p>
                 </Card>
@@ -346,7 +343,7 @@ export default function Management() {
 
       {/* CTA Section */}
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center max-w-lg mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}

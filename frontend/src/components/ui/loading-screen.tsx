@@ -19,19 +19,20 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.img
-          src={siddharthaLogo}
-          alt="Siddhartha School Logo"
-          className="w-24 h-24 mx-auto mb-4"
-          animate={{ 
-            rotate: [0, 360],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ 
-            rotate: { duration: 2, repeat: Infinity, ease: "linear" },
-            scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
-          }}
-        />
+     <motion.img
+  src={siddharthaLogo}
+  alt="Siddhartha School Logo"
+  className="w-24 h-24 mx-auto mb-4"
+  animate={{ 
+    // Removed rotate animation
+    scale: [1, 1.1, 1]
+  }}
+  transition={{ 
+    // Removed rotate transition
+    scale: { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+  }}
+/>
+
         <motion.h2
           className="text-2xl font-bold text-primary mb-2"
           initial={{ y: 20, opacity: 0 }}

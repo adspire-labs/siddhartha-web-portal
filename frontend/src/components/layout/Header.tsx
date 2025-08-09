@@ -13,11 +13,11 @@ const navigation = [
     href: '/about',
     subPages: [
       { name: 'Introduction', href: '/about/introduction' },
-        { name: 'Message from Leaders', href: '/about/leaders' },
+      { name: 'Message from Leaders', href: '/about/leaders' },
       { name: 'Our History', href: '/about/history' },
       { name: 'Our Faculty', href: '/about/faculty' },
       { name: 'Alumni & Parents', href: '/about/alumni-parents' },
-    
+      { name: 'Management Committee', href: '/about/management-committee' }, 
     ]
   },
   { 
@@ -26,6 +26,19 @@ const navigation = [
     subPages: [
       { name: 'Science Stream', href: '/programs/science' },
       { name: 'Management Stream', href: '/programs/management' },
+    ]
+  },
+  { 
+    name: 'Facilities', 
+    href: '/facilities',
+    subPages: [
+      { name: 'Well Equipped Labs and Library', href: '/facilities/WellEquippedLabsAndLibrary' },
+      { name: 'Play Ground', href: '/facilities/PlayGround' },
+      { name: 'Transportation', href: '/facilities/Transportation' },
+      { name: 'Cafeteria', href: '/facilities/cafeteria' },
+      { name: 'Projector Hall and Audio Visual Room', href: '/facilities/ProjectorHallAndAudioVisualRoom' },
+      { name: 'Excursion and Field Visits', href: '/facilities/ExcursionAndFieldVisits' },
+      { name: 'Hostel', href: '/facilities/hostel' },
     ]
   },
   { name: 'Gallery', href: '/gallery' },
@@ -41,7 +54,6 @@ export const Header = () => {
   const headerRef = useRef<HTMLElement>(null);
   const isInitialRender = useRef(true);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -51,18 +63,15 @@ export const Header = () => {
         setIsOpen(false);
       }
     };
-    
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  // Close mobile menu when location changes
   useEffect(() => {
     setIsOpen(false);
     setExpandedMenu(null);
   }, [location]);
 
-  // Prevent layout shifts on mobile
   useEffect(() => {
     const updateHeaderHeight = () => {
       if (headerRef.current) {
@@ -72,23 +81,19 @@ export const Header = () => {
         );
       }
     };
-    
     updateHeaderHeight();
     window.addEventListener('resize', updateHeaderHeight);
-    
     return () => {
       window.removeEventListener('resize', updateHeaderHeight);
       document.documentElement.style.removeProperty('--header-height');
     };
   }, [isOpen]);
 
-  // Fix for mobile refresh bug
   useEffect(() => {
     if (isInitialRender.current) {
       isInitialRender.current = false;
       return;
     }
-    
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.touchAction = 'none';
@@ -96,7 +101,6 @@ export const Header = () => {
       document.body.style.overflow = '';
       document.body.style.touchAction = '';
     }
-    
     return () => {
       document.body.style.overflow = '';
       document.body.style.touchAction = '';
@@ -120,7 +124,6 @@ export const Header = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo - Optimized for mobile */}
           <Link to="/" className="flex items-center space-x-3 transition-smooth hover:scale-105 min-w-0 flex-shrink">
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-card flex-shrink-0">
               <img src={logo} alt="Siddhartha School Logo" className="w-full h-full object-cover" />
@@ -139,10 +142,7 @@ export const Header = () => {
           <nav className="hidden md:flex items-center space-x-8" ref={menuRef}>
             {navigation.map((item) => (
               item.subPages ? (
-                <div 
-                  key={item.name}
-                  className="relative"
-                >
+                <div key={item.name} className="relative">
                   <button
                     onClick={(e) => toggleSubmenu(item.name, e)}
                     className={cn(
@@ -160,10 +160,8 @@ export const Header = () => {
                       )} 
                     />
                   </button>
-                  
-                  {/* Submenu Dropdown */}
                   {expandedMenu === item.name && (
-                    <div className="absolute left-0 top-full mt-2 w-48 rounded-lg shadow-lg bg-background border border-border z-50 animate-in fade-in slide-in-from-top-1">
+                    <div className="absolute left-0 top-full mt-2 w-56 rounded-lg shadow-lg bg-background border border-border z-50 animate-in fade-in slide-in-from-top-1">
                       <div className="py-1">
                         {item.subPages.map((subPage) => (
                           <Link
@@ -200,14 +198,12 @@ export const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
           <div className="hidden md:block">
             <Button size="sm" className="shadow-card">
               Admission
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 rounded-md hover:bg-muted transition-smooth"
@@ -217,7 +213,7 @@ export const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation with Animation */}
+        {/* Mobile Navigation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -250,8 +246,6 @@ export const Header = () => {
                             )} 
                           />
                         </button>
-                        
-                        {/* Submenu items */}
                         {expandedMenu === item.name && (
                           <motion.div
                             initial={{ opacity: 0, height: 0 }}
@@ -294,7 +288,6 @@ export const Header = () => {
                     )}
                   </div>
                 ))}
-                
                 <div className="mt-2 px-3 py-3">
                   <Button size="sm" className="w-full">
                     Admission

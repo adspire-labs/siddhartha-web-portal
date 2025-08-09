@@ -19,12 +19,12 @@ export const Footer = () => {
               </div>
               <div className="text-sm font-bold leading-tight">
                 <div className="hidden sm:block">
-                  <div>SIDDHARTHA SCHOOL</div>
+                  <div>SIDDHARTHA</div>
                   <div className="text-xs font-normal">English Boarding School</div>
                 </div>
                 <div className="sm:hidden">
                   <div>SIDDHARTHA</div>
-                  <div className="text-[10px] font-normal">ENGLISH SCHOOL</div>
+                  <div className="text-[10px] font-normal">ENGLISH BOARDING SCHOOL</div>
                 </div>
               </div>
             </div>

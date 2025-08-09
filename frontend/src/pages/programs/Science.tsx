@@ -88,7 +88,7 @@ export default function Science() {
   ];
 
   return (
-    <div className="pt-16">
+    <div className="pt-16 overflow-x-hidden">
       <HeroSection
         subtitle="Science Stream"
         title="Explore the Wonders of Science"
@@ -99,7 +99,7 @@ export default function Science() {
 
       {/* Overview Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-full md:max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -160,7 +160,7 @@ export default function Science() {
 
       {/* Subjects Section */}
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-full md:max-w-6xl">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -211,7 +211,7 @@ export default function Science() {
 
       {/* Career Opportunities */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-full md:max-w-6xl">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
@@ -253,7 +253,7 @@ export default function Science() {
 
       {/* Facilities & Highlights */}
       <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-full md:max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -304,7 +304,7 @@ export default function Science() {
 
       {/* CTA Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 max-w-full md:max-w-6xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
