@@ -24,6 +24,7 @@ const navigation = [
     name: 'Programs', 
     href: '/programs',
     subPages: [
+      { name: 'All Programs', href: '/programs' },
       { name: 'Science Stream', href: '/programs/science' },
       { name: 'Management Stream', href: '/programs/management' },
     ]

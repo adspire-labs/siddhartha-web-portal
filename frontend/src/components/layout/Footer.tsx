@@ -7,7 +7,7 @@ export const Footer = () => {
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* School Info */}
+          {/* School Info - Updated to match header */}
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
               <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 flex-shrink-0">
@@ -17,14 +17,15 @@ export const Footer = () => {
                   className="w-full h-full object-contain p-1" 
                 />
               </div>
-              <div className="text-sm font-bold leading-tight">
-                <div className="hidden sm:block">
-                  <div>SIDDHARTHA</div>
-                  <div className="text-xs font-normal">English Boarding School</div>
+              <div className="flex flex-col">
+                <div className="text-lg font-bold leading-none">
+                  SIDDHARTHA
                 </div>
-                <div className="sm:hidden">
-                  <div>SIDDHARTHA</div>
-                  <div className="text-[10px] font-normal">ENGLISH BOARDING SCHOOL</div>
+                <div className="hidden sm:block text-[0.65rem] font-normal leading-tight mt-0.5">
+                  English Boarding Secondary School
+                </div>
+                <div className="sm:hidden text-[0.55rem] font-normal leading-tight mt-0.5">
+                  ENGLISH BOARDING SECONDARY SCHOOL
                 </div>
               </div>
             </div>
