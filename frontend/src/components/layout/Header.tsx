@@ -128,13 +128,18 @@ export const Header = () => {
             <div className="w-10 h-10 rounded-full overflow-hidden shadow-card flex-shrink-0">
               <img src={logo} alt="Siddhartha School Logo" className="w-full h-full object-cover" />
             </div>
-            <div className="hidden sm:block text-sm font-bold text-primary leading-tight whitespace-nowrap">
-              <div>SIDDHARTHA</div>
-              <div className="text-xs font-normal">English Boarding Seconday School</div>
-            </div>
-            <div className="sm:hidden text-xs font-bold text-primary whitespace-nowrap">
-              <div>SIDDHARTHA ENGLISH</div>
-              <div className="text-[10px] font-normal">BOARDING SECONDARY SCHOOL</div>
+            
+            {/* Updated logo text layout */}
+            <div className="flex flex-col">
+              <div className="text-lg font-bold text-primary leading-none">
+                SIDDHARTHA
+              </div>
+              <div className="hidden sm:block text-[0.65rem] font-normal text-primary leading-tight mt-0.5">
+                English Boarding Secondary School
+              </div>
+              <div className="sm:hidden text-[0.55rem] font-normal text-primary leading-tight mt-0.5">
+                ENGLISH BOARDING SECONDARY SCHOOL
+              </div>
             </div>
           </Link>
 
