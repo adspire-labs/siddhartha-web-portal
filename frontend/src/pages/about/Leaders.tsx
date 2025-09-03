@@ -15,26 +15,29 @@ const leaders = [
     id: 1,
     name: "Yam Bahadur Rana",
     designation: "Principal",
-    message: "It is truly rewarding to witness our students thriving in various areas, a reflection of the academic strength and values instilled during their time with us. This success would not have been achievable without the dedication of our teaching and non-teaching staff, the trust of our guardians, and the constant support of our management team. I sincerely thank everyone for their role in nurturing a vibrant and disciplined learning environment. Let us continue this journey with the same passion and commitment.",
+    message:
+      "It is truly rewarding to witness our students thriving in various areas, a reflection of the academic strength and values instilled during their time with us. This success would not have been achievable without the dedication of our teaching and non-teaching staff, the trust of our guardians, and the constant support of our management team. I sincerely thank everyone for their role in nurturing a vibrant and disciplined learning environment. Let us continue this journey with the same passion and commitment.",
     image: principalImage,
-    signature: "Yam Bahadur Rana — Principal"
+    signature: "Yam Bahadur Rana — Principal",
   },
   {
     id: 2,
     name: "Ram Lal Shrestha",
     designation: "Chairperson",
-    message: "We can proudly say that we have laid strong foundation for the students which have enabled them to excel in different fields. This would not have been possible without commitment and the dedication of the promoters, faith and support of the guardians and the active co-operation of the staff. I would like to express my sincere gratitude to them.",
+    message:
+      "We can proudly say that we have laid strong foundation for the students which have enabled them to excel in different fields. This would not have been possible without commitment and the dedication of the promoters, faith and support of the guardians and the active co-operation of the staff. I would like to express my sincere gratitude to them.",
     image: chairmanImage,
-    signature: "Ram Lal Shrestha — Chairperson"
+    signature: "Ram Lal Shrestha — Chairperson",
   },
   {
     id: 3,
     name: "Babu Ram Khanal",
     designation: "Managing Director",
-    message: "We are aware of the fact that we are nurturing the smart generation of the 21st century. We never compromise in creating congenial educational environment. We firmly believe that in addition to qualified faculty members, students need physical facilities with modern teaching aids. But at the same time we strive for sustaining the ethical and moral values.",
+    message:
+      "We are aware of the fact that we are nurturing the smart generation of the 21st century. We never compromise in creating congenial educational environment. We firmly believe that in addition to qualified faculty members, students need physical facilities with modern teaching aids. But at the same time we strive for sustaining the ethical and moral values.",
     image: mdImage,
-    signature: "Babu Ram Khanal — Managing Director"
-  }
+    signature: "Babu Ram Khanal — Managing Director",
+  },
 ];
 
 export default function LeadershipMessages() {
@@ -76,16 +79,20 @@ export default function LeadershipMessages() {
                 />
               </div>
 
-              <h3 className="text-2xl font-semibold text-primary text-center mb-1">{leader.name}</h3>
-              <p className="text-secondary font-medium mb-4 text-center">{leader.designation}</p>
+              <h3 className="text-2xl font-semibold text-primary text-center mb-1">
+                {leader.name}
+              </h3>
+              <p className="text-secondary font-medium mb-4 text-center">
+                {leader.designation}
+              </p>
 
-              {/* Message without quotes */}
-              <p className="text-center text-muted-foreground text-base leading-relaxed px-2 md:px-6 mb-6">
+              {/* Message justified */}
+              <p className="text-justify text-muted-foreground text-base leading-relaxed px-2 md:px-6 mb-6">
                 {leader.message}
               </p>
 
-              {/* Individual Signature Footer */}
-              <div className="text-center text-sm text-primary italic tracking-wide select-none border-t border-primary/30 pt-3 w-full">
+              {/* Signature justified */}
+              <div className="text-justify text-sm text-primary italic tracking-wide select-none border-t border-primary/30 pt-3 w-full">
                 {leader.signature}
               </div>
             </Card>
@@ -94,7 +101,11 @@ export default function LeadershipMessages() {
 
         <div className="mt-16 text-center">
           <Link to="/">
-            <Button variant="outline" size="lg" className="inline-flex items-center justify-center">
+            <Button
+              variant="outline"
+              size="lg"
+              className="inline-flex items-center justify-center"
+            >
               <ChevronLeft className="w-5 h-5 mr-2" />
               Return to Home Page
             </Button>
