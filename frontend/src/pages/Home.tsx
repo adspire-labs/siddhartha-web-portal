@@ -24,7 +24,7 @@ import {
   Trophy,
   X // Import the X icon for the modal
 } from 'lucide-react';
-import heroImage from '@/assets/hero-students.jpg';
+import heroImage from '@/assets/main-building.jpg';
 import schoolBuilding from '@/assets/school-building.jpg';
 
 const features = [

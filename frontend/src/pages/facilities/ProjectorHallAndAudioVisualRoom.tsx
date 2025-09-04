@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import projectorHall from '@/assets/projector-hall.jpg';
+import avRoom from '@/assets/av-room.jpg';
 
 const ProjectorAndAV = () => {
   useEffect(() => {
@@ -20,8 +22,8 @@ const ProjectorAndAV = () => {
             </div>
             <div className="lg:w-1/2 flex items-center justify-center">
               <img
-                src="https://via.placeholder.com/400x300?text=Projector+Hall+Image"
-                alt="Projector Hall Placeholder"
+                src={projectorHall}
+                alt="Projector Hall"
                 className="w-full max-w-md h-64 object-cover rounded-lg shadow-elegant"
               />
             </div>
@@ -32,8 +34,8 @@ const ProjectorAndAV = () => {
             {/* Image Left */}
             <div className="lg:w-1/2 flex items-center justify-center order-last lg:order-first">
               <img
-                src="https://via.placeholder.com/400x300?text=Audio+Visual+Room+Image"
-                alt="Audio Visual Room Placeholder"
+                src={avRoom}
+                alt="Audio Visual Room"
                 className="w-full max-w-md h-64 object-cover rounded-lg shadow-elegant"
               />
             </div>

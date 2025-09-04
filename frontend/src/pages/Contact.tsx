@@ -18,7 +18,7 @@ import {
   MessageCircle,
   ArrowRight
 } from 'lucide-react';
-import heroImage from '@/assets/hero-students.jpg';
+import heroImage from '@/assets/main-building.jpg';
 
 const contactInfo = [
   {

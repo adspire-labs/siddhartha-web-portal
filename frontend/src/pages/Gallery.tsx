@@ -3,7 +3,7 @@ import axios from "axios";
 import { Card } from "@/components/ui/card";
 import { HeroSection } from "@/components/ui/hero-section";
 import { Camera, Play, X, ChevronLeft, ChevronRight } from "lucide-react";
-import heroImage from "@/assets/hero-students.jpg";
+import heroImage from "@/assets/main-building.jpg";
 import { apiEndpoint } from '../../apiEndpoint';
 
 interface GalleryItem {

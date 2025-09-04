@@ -12,7 +12,7 @@ import {
   BookOpen,
   Award,
 } from "lucide-react";
-import heroImage from "@/assets/hero-students.jpg";
+import heroImage from "@/assets/main-building.jpg";
 import axios from "axios";
 import { apiEndpoint } from "../../apiEndpoint";
 
