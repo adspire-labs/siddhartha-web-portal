@@ -16,6 +16,7 @@ import { UserPlus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../../apiEndpoint";
+import { useCheckAdminCredentials } from "@/components/CheckCred";
 
 interface FacultyMember {
   id: number;
@@ -174,6 +175,7 @@ export default function FacultyAdd() {
       });
     }
   };
+  useCheckAdminCredentials()
 
   useEffect(() => {
     fetchFaculty();

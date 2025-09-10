@@ -30,6 +30,8 @@ import FacultyAdd from "./pages/about/FacultyAdd";
 import GalleryUpload from "./pages/GalleryForm";
 import Dashboard from "./components/ui/Dashboard";
 import AdminLogin from "./components/ui/Login";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import ForgotPassword from "./components/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -61,31 +63,37 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/admin/forgot" element={<ForgotPassword />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/about/introduction" element={<Introduction />} />
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
-                <Route
-                  path="/dashboard/about/faculty/Optimistic@2082"
-                  element={<FacultyAdd />}
-                />
 
                 <Route path="/programs" element={<Programs />} />
                 <Route path="/programs/science" element={<Science />} />
                 <Route path="/programs/management" element={<Management />} />
                 <Route path="/gallery" element={<Gallery />} />
-                <Route
-                  path="/dashboard/gallery/Optimistic@2082"
-                  element={<GalleryUpload />}
-                />
+
                 <Route path="/news" element={<News />} />
-                <Route
-                  path="/dashboard/news/Optimistic@2082"
-                  element={<NewsForm />}
-                />
+
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
+
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route
+                    path="/dashboard/about/faculty/Optimistic@2082"
+                    element={<FacultyAdd />}
+                  />
+                  <Route
+                    path="/dashboard/news/Optimistic@2082"
+                    element={<NewsForm />}
+                  />
+                  <Route
+                    path="/dashboard/gallery/Optimistic@2082"
+                    element={<GalleryUpload />}
+                  />
+                </Route>
               </Routes>
             </main>
             <Footer />
