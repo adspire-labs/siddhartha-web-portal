@@ -4,7 +4,6 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiEndpoint } from "../../../apiEndpoint";
-import { useCheckAdminCredentials } from "../CheckCred";
 
 export interface NewsItem {
   id: number;
@@ -32,7 +31,6 @@ export const NewsForm = () => {
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  useCheckAdminCredentials()
 
   // Fetch news list from backend
   const fetchNews = async () => {

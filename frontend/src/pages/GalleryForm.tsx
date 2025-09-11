@@ -9,7 +9,6 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../apiEndpoint";
-import { useCheckAdminCredentials } from "@/components/CheckCred";
 
 interface GalleryItem {
   data: {
@@ -24,9 +23,6 @@ interface GalleryItem {
 }
 
 export default function GalleryUpload() {
-
-    useCheckAdminCredentials()
-
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
