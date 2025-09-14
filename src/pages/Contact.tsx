@@ -41,8 +41,7 @@ const contactInfo = [
     icon: Mail,
     title: 'Email',
     details: [
-      'info@siddharthaschool.edu.np',
-      'admission@siddharthaschool.edu.np'
+      'info@sebs.edu.np',
     ]
   },
   {
@@ -56,10 +55,10 @@ const contactInfo = [
 ];
 
 const departments = [
-  { name: 'General Inquiry', email: 'info@siddharthaschool.edu.np' },
-  { name: 'Admissions', email: 'admission@siddharthaschool.edu.np' },
-  { name: 'Academic Affairs', email: 'academic@siddharthaschool.edu.np' },
-  { name: 'Student Affairs', email: 'student@siddharthaschool.edu.np' }
+  { name: 'General Inquiry', email: 'info@sebs.edu.np' },
+  { name: 'Admissions', email: 'info@sebs.edu.np' },
+  { name: 'Academic Affairs', email: 'info@sebs.edu.np' },
+  { name: 'Student Affairs', email: 'info@sebs.edu.np' }
 ];
 
 export default function Contact() {
@@ -83,7 +82,7 @@ export default function Contact() {
     
     // Get the selected department email
     const selectedDepartment = departments.find(dept => dept.email === formData.department);
-    const toEmail = formData.department || 'info@siddharthaschool.edu.np';
+    const toEmail = formData.department || 'info@sebs.edu.np';
     
     // Create email body with form data
     const emailBody = `Hello,
@@ -296,10 +295,7 @@ ${formData.firstName} ${formData.lastName}`;
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                       <Phone className="w-5 h-5 text-primary" />
                     </div>
-                    <div>
-                      <p className="font-medium text-lg">Admissions</p>
-                      <p className="text-muted-foreground">+977-071-420200</p>
-                    </div>
+                   
                   </div>
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -308,7 +304,7 @@ ${formData.firstName} ${formData.lastName}`;
                     <div>
                       <p className="font-medium text-lg">General Info</p>
                       <p className="text-muted-foreground break-all">
-                        info@siddharthaschool.edu.np
+                        info@sebs.edu.np
                       </p>
                     </div>
                   </div>
