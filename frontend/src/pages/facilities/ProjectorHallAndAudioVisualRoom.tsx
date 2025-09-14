@@ -18,7 +18,7 @@ const ProjectorAndAV = () => {
               <h2 className="text-3xl lg:text-4xl font-bold mb-6">Projector Hall</h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
                 Our well-equipped Projector Hall serves as an interactive learning environment where students regularly engage with multimedia presentations. This facility enhances classroom learning by integrating audio-visual aids such as slides, videos, and animations, making complex topics more accessible and engaging for students across all grade levels.
-              </p>
+              </p> 
             </div>
             <div className="lg:w-1/2 flex items-center justify-center">
               <img
