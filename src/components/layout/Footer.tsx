@@ -109,7 +109,7 @@ export const Footer = () => {
           <p className="text-primary-foreground/60 text-sm">
             © 2024 Siddhartha School. All rights reserved. | Education for All-Round Development
             <br />
-            Powered by <a href="https://www.adspirelabs.com.np" target="_blank" rel="noopener noreferrer" className="hover:underline">Adspire Labs</a>
+            Powered by <a href="https://www.adspirelabs.com.np" target="_blank" rel="noopener noreferrer" className="hover:underline">Adspire Labs Butwal</a>
           </p>
         </div>
       </div>
