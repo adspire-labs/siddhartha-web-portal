@@ -415,16 +415,17 @@ export default function Home() {
                 <X className="w-5 h-5" />
               </button>
               
-              <div className="aspect-video w-full">
-                <iframe
-                  src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1&mute=1"
-                  title="School Tour - Siddhartha School"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
-                ></iframe>
-              </div>
-              
+<div className="aspect-video w-full">
+  <iframe
+    src="https://www.youtube.com/embed/akoimWQg4V8?si=prbxWecHwSbcpIVm&autoplay=1"
+    title="School Tour - Siddhartha School"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+    className="w-full h-full"
+  ></iframe>
+</div>
+
               <div className="p-4 bg-background">
                 <h3 className="text-xl font-bold text-center">School Tour</h3>
                 <p className="text-muted-foreground text-center mt-2">
