@@ -21,9 +21,9 @@ import Chatbot from "./components/Chatbot";
 import Introduction from "./pages/about/Introduction";
 import History from "./pages/about/History";
 import Faculty from "./pages/about/Faculty";
-import AlumniParents from './pages/about/alumni-parents';
-import Leaders from './pages/about/Leaders';
-import ManagementCommittee from './pages/about/Management-Committe';
+import AlumniParents from "./pages/about/alumni-parents";
+import Leaders from "./pages/about/Leaders";
+import ManagementCommittee from "./pages/about/Management-Committe";
 
 // Programs sub-pages
 import Science from "./pages/programs/Science";
@@ -42,6 +42,9 @@ import { NewsForm } from "./components/ui/NewsForm";
 import FacultyAdd from "./pages/about/FacultyAdd";
 import GalleryUpload from "./pages/GalleryForm";
 import Dashboard from "./components/ui/Dashboard";
+import AdminLogin from "./components/ui/Login";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import ForgotPassword from "./components/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -71,17 +74,23 @@ const App = () => {
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path='/Optimistic@2082' element={<Dashboard />} />
-
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin/forgot" element={<ForgotPassword />} />
+    
                 {/* About and its subpages */}
                 <Route path="/about" element={<About />} />
                 <Route path="/about/introduction" element={<Introduction />} />
                 <Route path="/about/history" element={<History />} />
                 <Route path="/about/faculty" element={<Faculty />} />
-                <Route path="/about/alumni-parents" element={<AlumniParents />} />
+                <Route
+                  path="/about/alumni-parents"
+                  element={<AlumniParents />}
+                />
                 <Route path="/about/leaders" element={<Leaders />} />
-                <Route path="/about/management-committee" element={<ManagementCommittee />} />
-                <Route path="/dashboard/about/faculty/Optimistic@2082" element={<FacultyAdd />} />
+                <Route
+                  path="/about/management-committee"
+                  element={<ManagementCommittee />}
+                />
 
                 {/* Programs */}
                 <Route path="/programs" element={<Programs />} />
@@ -89,21 +98,47 @@ const App = () => {
                 <Route path="/programs/management" element={<Management />} />
 
                 {/* Facilities and its subpages */}
-                <Route path="/facilities/wellequippedlabsandlibrary" element={<WellEquippedLabsAndLibrary />} />
+                <Route
+                  path="/facilities/wellequippedlabsandlibrary"
+                  element={<WellEquippedLabsAndLibrary />}
+                />
                 <Route path="/facilities/playground" element={<PlayGround />} />
-                <Route path="/facilities/transportation" element={<Transportation />} />
+                <Route
+                  path="/facilities/transportation"
+                  element={<Transportation />}
+                />
                 <Route path="/facilities/cafeteria" element={<Cafeteria />} />
-                <Route path="/facilities/projectorhallandaudiovisualroom" element={<ProjectorHallAndAudioVisualRoom />} />
-                <Route path="/facilities/excursionandfieldvisits" element={<ExcursionAndFieldVisits />} />
+                <Route
+                  path="/facilities/projectorhallandaudiovisualroom"
+                  element={<ProjectorHallAndAudioVisualRoom />}
+                />
+                <Route
+                  path="/facilities/excursionandfieldvisits"
+                  element={<ExcursionAndFieldVisits />}
+                />
                 <Route path="/facilities/hostel" element={<Hostel />} />
+
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route
+                    path="/dashboard/about/faculty/Optimistic@2082"
+                    element={<FacultyAdd />}
+                  />
+                  <Route
+                    path="/dashboard/news/Optimistic@2082"
+                    element={<NewsForm />}
+                  />
+                  <Route
+                    path="/dashboard/gallery/Optimistic@2082"
+                    element={<GalleryUpload />}
+                  />
+                </Route>
 
                 {/* Gallery */}
                 <Route path="/gallery" element={<Gallery />} />
-                <Route path='/dashboard/gallery/Optimistic@2082' element={<GalleryUpload />} />
 
                 {/* News */}
                 <Route path="/news" element={<News />} />
-                <Route path="/dashboard/news/Optimistic@2082" element={<NewsForm />} />
 
                 {/* Contact */}
                 <Route path="/contact" element={<Contact />} />

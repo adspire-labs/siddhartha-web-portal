@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiEndpoint } from "../../../apiEndpoint";
+import { useCheckAdminCredentials } from "../CheckCred";
 
 export interface NewsItem {
   id: number;
@@ -22,6 +23,8 @@ export interface NewsResponse {
 }
 
 export const NewsForm = () => {
+  useCheckAdminCredentials();
+
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [category, setCategory] = useState("");
@@ -36,7 +39,7 @@ export const NewsForm = () => {
   const fetchNews = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(apiEndpoint.fetchNews) as NewsResponse;
+      const res = (await axios.get(apiEndpoint.fetchNews)) as NewsResponse;
       setNewsList(res.data.newsData);
     } catch (error) {
       toast.error("Failed to fetch news.");
@@ -80,7 +83,7 @@ export const NewsForm = () => {
     if (!confirm("Are you sure you want to delete this news?")) return;
 
     try {
-      await axios.post(apiEndpoint.deleteNews(id),{id});
+      await axios.post(apiEndpoint.deleteNews(id), { id });
       toast.success("News deleted");
       fetchNews();
     } catch (error) {
@@ -156,7 +159,9 @@ export const NewsForm = () => {
 
       {/* News List */}
       <div>
-        <h3 className="text-2xl font-semibold mb-6 text-center">Existing News</h3>
+        <h3 className="text-2xl font-semibold mb-6 text-center">
+          Existing News
+        </h3>
 
         {isLoading ? (
           <p className="text-center text-muted-foreground">Loading news...</p>
@@ -171,7 +176,9 @@ export const NewsForm = () => {
               >
                 <div>
                   <h4 className="text-lg font-semibold">{news.title}</h4>
-                  <p className="text-sm text-muted-foreground">{news.excerpt}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {news.excerpt}
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Category: {news.category} | Type: {news.type}{" "}
                     {news.featured && (

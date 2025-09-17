@@ -16,6 +16,7 @@ import { UserPlus, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../../apiEndpoint";
+import { useCheckAdminCredentials } from "@/components/CheckCred";
 
 interface FacultyMember {
   id: number;
@@ -38,6 +39,8 @@ interface FacultyApiResponse {
 }
 
 export default function FacultyAdd() {
+  useCheckAdminCredentials();
+
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -101,15 +104,11 @@ export default function FacultyAdd() {
     data.append("photo", selectedFile);
 
     try {
-      const res = await axios.post(
-        apiEndpoint.addfaculty,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await axios.post(apiEndpoint.addfaculty, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (res.status === 200 || res.status === 201) {
         navigate("/about/faculty");
@@ -163,7 +162,7 @@ export default function FacultyAdd() {
 
   const handleDelete = async (id: number) => {
     try {
-      await axios.post(apiEndpoint.deleteFaculty(id),{id});
+      await axios.post(apiEndpoint.deleteFaculty(id), { id });
       toast({ title: "Deleted", description: "Faculty member deleted." });
       fetchFaculty();
     } catch (error) {

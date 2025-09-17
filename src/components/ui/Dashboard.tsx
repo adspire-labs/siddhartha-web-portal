@@ -94,16 +94,6 @@ const Dashboard: React.FC = () => {
             </div>
           </motion.div>
         </div>
-
-        {/* Footer */}
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-16 pb-8 text-gray-400 text-sm"
-        >
-          <p>Powered by <span className="text-gray-600 font-medium">Adspire Labs Butwal</span></p>
-        </motion.footer>
       </div>
     </div>
   );

@@ -4,11 +4,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Upload, Image as ImageIcon, Trash2, X, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Upload,
+  Image as ImageIcon,
+  Trash2,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../apiEndpoint";
+import { useCheckAdminCredentials } from "@/components/CheckCred";
 
 interface GalleryItem {
   id: number;
@@ -19,6 +27,8 @@ interface GalleryItem {
 }
 
 export default function GalleryUpload() {
+  useCheckAdminCredentials();
+
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
@@ -58,8 +68,8 @@ export default function GalleryUpload() {
     if (files && files.length > 0) {
       const newFiles = Array.from(files);
       setSelectedFiles(newFiles);
-      
-      const urls = newFiles.map(file => URL.createObjectURL(file));
+
+      const urls = newFiles.map((file) => URL.createObjectURL(file));
       setPreviewUrls(urls);
     }
   };
@@ -76,13 +86,13 @@ export default function GalleryUpload() {
     setIsUploading(true);
 
     try {
-      const uploadPromises = selectedFiles.map(file => {
+      const uploadPromises = selectedFiles.map((file) => {
         const form = new FormData();
         form.append("title", formData.title);
         form.append("description", formData.description);
         form.append("photo", file);
         return axios.post(apiEndpoint.addGallery, form, {
-          headers: { "Content-Type": "multipart/form-data" }
+          headers: { "Content-Type": "multipart/form-data" },
         });
       });
 
@@ -120,10 +130,10 @@ export default function GalleryUpload() {
   const removePreviewImage = (index: number) => {
     const newFiles = [...selectedFiles];
     const newUrls = [...previewUrls];
-    
+
     newFiles.splice(index, 1);
     newUrls.splice(index, 1);
-    
+
     setSelectedFiles(newFiles);
     setPreviewUrls(newUrls);
   };
@@ -146,12 +156,16 @@ export default function GalleryUpload() {
     setLightboxOpen(false);
   };
 
-  const navigateLightbox = (direction: 'prev' | 'next') => {
+  const navigateLightbox = (direction: "prev" | "next") => {
     const currentGroup = Object.values(groupedGallery).flat();
-    if (direction === 'prev') {
-      setCurrentImageIndex(prev => (prev > 0 ? prev - 1 : currentGroup.length - 1));
+    if (direction === "prev") {
+      setCurrentImageIndex((prev) =>
+        prev > 0 ? prev - 1 : currentGroup.length - 1
+      );
     } else {
-      setCurrentImageIndex(prev => (prev < currentGroup.length - 1 ? prev + 1 : 0));
+      setCurrentImageIndex((prev) =>
+        prev < currentGroup.length - 1 ? prev + 1 : 0
+      );
     }
   };
 
@@ -160,29 +174,31 @@ export default function GalleryUpload() {
       {/* Lightbox - only for gallery display */}
       {lightboxOpen && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <button 
-            onClick={closeLightbox} 
+          <button
+            onClick={closeLightbox}
             className="absolute top-4 right-4 text-white hover:text-gray-300"
           >
             <X className="w-8 h-8" />
           </button>
-          
+
           <div className="relative max-w-4xl w-full">
-            <img 
-              src={Object.values(groupedGallery).flat()[currentImageIndex].photo} 
-              alt="Gallery" 
+            <img
+              src={
+                Object.values(groupedGallery).flat()[currentImageIndex].photo
+              }
+              alt="Gallery"
               className="max-h-[80vh] w-full object-contain"
             />
-            
+
             <div className="absolute inset-x-0 bottom-4 flex justify-center space-x-4">
-              <button 
-                onClick={() => navigateLightbox('prev')}
+              <button
+                onClick={() => navigateLightbox("prev")}
                 className="bg-white/20 hover:bg-white/30 rounded-full p-2"
               >
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
-              <button 
-                onClick={() => navigateLightbox('next')}
+              <button
+                onClick={() => navigateLightbox("next")}
                 className="bg-white/20 hover:bg-white/30 rounded-full p-2"
               >
                 <ChevronRight className="w-6 h-6 text-white" />
@@ -195,7 +211,9 @@ export default function GalleryUpload() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground">Gallery Upload</h2>
-          <p className="text-muted-foreground">Upload and manage gallery images</p>
+          <p className="text-muted-foreground">
+            Upload and manage gallery images
+          </p>
         </div>
 
         {/* Upload Form - Individual Images */}
@@ -208,7 +226,12 @@ export default function GalleryUpload() {
                     <Label>Title</Label>
                     <Input
                       value={formData.title}
-                      onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          title: e.target.value,
+                        }))
+                      }
                       placeholder="Enter title"
                       required
                     />
@@ -217,7 +240,12 @@ export default function GalleryUpload() {
                     <Label>Description</Label>
                     <Textarea
                       value={formData.description}
-                      onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          description: e.target.value,
+                        }))
+                      }
                       placeholder="Enter description"
                       rows={3}
                     />
@@ -239,8 +267,15 @@ export default function GalleryUpload() {
                   {previewUrls.length > 0 ? (
                     <div className="grid grid-cols-2 gap-2 max-h-60 overflow-y-auto p-2 border rounded-lg">
                       {previewUrls.map((url, index) => (
-                        <div key={index} className="relative aspect-square overflow-hidden rounded border group">
-                          <img src={url} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+                        <div
+                          key={index}
+                          className="relative aspect-square overflow-hidden rounded border group"
+                        >
+                          <img
+                            src={url}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
                           <button
                             type="button"
                             onClick={() => removePreviewImage(index)}
@@ -255,14 +290,21 @@ export default function GalleryUpload() {
                     <div className="border-2 border-dashed border-border rounded-xl p-8 text-center bg-muted/30 h-full flex items-center justify-center">
                       <div>
                         <ImageIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                        <p className="text-muted-foreground">No images selected</p>
+                        <p className="text-muted-foreground">
+                          No images selected
+                        </p>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button type="submit" disabled={isUploading} className="w-full md:w-1/2" size="lg">
+                <Button
+                  type="submit"
+                  disabled={isUploading}
+                  className="w-full md:w-1/2"
+                  size="lg"
+                >
                   {isUploading ? (
                     <>
                       <Upload className="w-4 h-4 mr-2 animate-spin" />
@@ -284,14 +326,18 @@ export default function GalleryUpload() {
         <div>
           <h3 className="text-2xl font-semibold mb-6">Gallery Collections</h3>
           {isLoading ? (
-            <p className="text-center text-muted-foreground">Loading gallery...</p>
+            <p className="text-center text-muted-foreground">
+              Loading gallery...
+            </p>
           ) : galleryList.length === 0 ? (
-            <p className="text-center text-muted-foreground">No images in gallery yet</p>
+            <p className="text-center text-muted-foreground">
+              No images in gallery yet
+            </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Object.entries(groupedGallery).map(([title, items]) => (
                 <Card key={title} className="hover:shadow-md transition-shadow">
-                  <div 
+                  <div
                     className="relative aspect-square overflow-hidden cursor-pointer"
                     onClick={() => openLightbox(title)}
                   >
