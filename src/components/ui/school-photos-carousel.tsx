@@ -10,7 +10,8 @@ import schoolBuilding from '@/assets/school-building.jpg';
 
 const schoolImages = [
   { src: mainBuilding, alt: 'Siddhartha School Main Building' },
-  { src: schoolBuilding, alt: 'School Campus Building' }
+  { src: schoolBuilding, alt: 'School Campus Building' },
+
 ];
 
 export function SchoolPhotosCarousel() {
