@@ -7,6 +7,7 @@ import { LoadingScreen } from '@/components/ui/loading-screen';
 import { NoticeOverlay } from '@/components/ui/notice-overlay';
 import { LeadershipSlider } from '@/components/ui/leadership-slider';
 import { StudentsSlider } from '@/components/ui/student-slider';
+import { SchoolPhotosCarousel } from '@/components/ui/school-photos-carousel';
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 import { Link } from 'react-router-dom';
 import { 
@@ -100,38 +101,56 @@ export default function Home() {
     <>
       <NoticeOverlay />
       <div className="pt-16">
-      {/* Hero Section */}
+      {/* School Photos Carousel */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
       >
-        <HeroSection
-          subtitle="Welcome to Siddhartha School"
-          title="Learn and Achieve in Peaceful Environment"
-          description="Enter to LEARN, Leave to SERVE. We provide quality education that prepares students for a bright future with strong moral values and academic excellence."
-          backgroundImage={heroImage}
-          height="xl"
-        >
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link to="/programs">
-            <Button size="lg" className="shadow-glow">
-              <BookOpen className="w-5 h-5 mr-2" />
-              Explore Programs
-            </Button>
-          </Link>
-          <Button 
-            onClick={() => setShowVideoModal(true)}
-            variant="outline" 
-            size="lg" 
-            className="bg-white/10 border-white/30 text-white hover:bg-white/20"
-          >
-            <Users className="w-5 h-5 mr-2" />
-            Visit School
-          </Button>
-        </div>
-        </HeroSection>
+        <SchoolPhotosCarousel />
       </motion.div>
+
+      {/* Welcome Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="py-20 text-center"
+      >
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-6">
+              Welcome to Siddhartha School
+            </h1>
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold mb-8 text-primary">
+              Learn and Achieve in Peaceful Environment
+            </h2>
+            <p className="text-muted-foreground max-w-3xl mx-auto mb-10 text-lg leading-relaxed">
+              Enter to LEARN, Leave to SERVE. We provide quality education that prepares students for a bright future with strong moral values and academic excellence.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link to="/programs">
+                <Button size="lg" className="shadow-glow">
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  Explore Programs
+                </Button>
+              </Link>
+              <Button 
+                onClick={() => setShowVideoModal(true)}
+                variant="outline" 
+                size="lg"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Visit School
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
 
       {/* Features Section */}
 <section className="py-20">
