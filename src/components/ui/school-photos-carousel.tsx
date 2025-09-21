@@ -6,26 +6,11 @@ import { Button } from '@/components/ui/button';
 // Import school images
 import mainBuilding from '@/assets/main-building.jpg';
 import schoolBuilding from '@/assets/school-building.jpg';
-import library1 from '@/assets/library-1.jpg';
-import library2 from '@/assets/library-2.jpg';
-import scienceLab1 from '@/assets/science-lab-1.jpg';
-import scienceLab2 from '@/assets/science-lab-2.jpg';
-import playground1 from '@/assets/playground-1.jpg';
-import canteen1 from '@/assets/canteen-1.jpg';
-import projectorHall from '@/assets/projector-hall.jpg';
-import avRoom from '@/assets/av-room.jpg';
+
 
 const schoolImages = [
   { src: mainBuilding, alt: 'Siddhartha School Main Building' },
-  { src: schoolBuilding, alt: 'School Campus Building' },
-  { src: library1, alt: 'Well-equipped Library' },
-  { src: library2, alt: 'Reading Area in Library' },
-  { src: scienceLab1, alt: 'Modern Science Laboratory' },
-  { src: scienceLab2, alt: 'Physics Laboratory' },
-  { src: playground1, alt: 'School Playground' },
-  { src: canteen1, alt: 'School Cafeteria' },
-  { src: projectorHall, alt: 'Projector Hall' },
-  { src: avRoom, alt: 'Audio Visual Room' }
+  { src: schoolBuilding, alt: 'School Campus Building' }
 ];
 
 export function SchoolPhotosCarousel() {

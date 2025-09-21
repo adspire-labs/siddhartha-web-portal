@@ -163,7 +163,7 @@ const higherSecondaryStreams = [
       'Research project opportunities',
       'Industry expert guest lectures'
     ],
-    examBoard: 'NEB (National Examination Board)'
+    examBoard: 'NEB (National Examinations Board)'
   },
   {
     id: 'management',
@@ -201,7 +201,7 @@ const higherSecondaryStreams = [
       'Internship opportunities',
       'Business plan competitions'
     ],
-    examBoard: 'NEB (National Examination Board)'
+    examBoard: 'NEB (National Examinations Board)'
   }
 ];
 

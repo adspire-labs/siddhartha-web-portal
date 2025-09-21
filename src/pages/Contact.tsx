@@ -34,7 +34,7 @@ const contactInfo = [
     title: 'Phone',
     details: [
       '+977-071-420200',
-      '+977-071-420201'
+      '+977-071-420092'
     ]
   },
   {
@@ -49,7 +49,7 @@ const contactInfo = [
     title: 'Office Hours',
     details: [
       'Sun - Fri: 7:00 AM - 5:00 PM',
-      'Saturday: 7:00 AM - 12:00 PM'
+      'Sat: Closed'
     ]
   }
 ];

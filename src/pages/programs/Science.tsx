@@ -151,7 +151,7 @@ export default function Science() {
               <Card className="p-6 text-center shadow-card hover:shadow-elegant transition-all duration-300">
                 <Award className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-semibold mb-2">Exam Board</h3>
-                <p className="text-muted-foreground">NEB (National Examination Board)</p>
+                <p className="text-muted-foreground">NEB (National Examinations Board)</p>
               </Card>
             </motion.div>
           </div>
