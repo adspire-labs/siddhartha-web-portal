@@ -1,14 +1,14 @@
 export const apiEndpoint = {
-  addGallery: "https://sebss.onrender.com/api/gallery/add",
-  fetchGallery: "https://sebss.onrender.com/api/gallery",
+  addGallery: "http://161.129.67.102:30085/api/gallery/add",
+  fetchGallery: "http://161.129.67.102:30085/api/gallery",
   deleteGallery: (id: number) =>
-    `https://sebss.onrender.com/api/gallery/delete/${id}`,
-  addNews: "https://sebss.onrender.com/api/news/add",
-  fetchNews: "https://sebss.onrender.com/api/news",
+    `http://161.129.67.102:30085/api/gallery/delete/${id}`,
+  addNews: "http://161.129.67.102:30085/api/news/add",
+  fetchNews: "http://161.129.67.102:30085/api/news",
   deleteNews: (id: number) =>
-    `https://sebss.onrender.com/api/news/delete/${id}`,
-  addfaculty: "https://sebss.onrender.com/api/faculty/add",
-  fetchFaculty: "https://sebss.onrender.com/api/faculty",
+    `http://161.129.67.102:30085/api/news/delete/${id}`,
+  addfaculty: "http://161.129.67.102:30085/api/faculty/add",
+  fetchFaculty: "http://161.129.67.102:30085/api/faculty",
   deleteFaculty: (id: number) =>
-    `https://sebss.onrender.com/api/faculty/delete/${id}`,
+    `http://161.129.67.102:30085/api/faculty/delete/${id}`,
 };
