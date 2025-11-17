@@ -1,14 +1,14 @@
 export const apiEndpoint = {
-  addGallery: "http://161.129.67.102:30085/api/gallery/add",
-  fetchGallery: "http://161.129.67.102:30085/api/gallery",
+  addGallery: "http://api.sebs.edu.np/api/gallery/add",
+  fetchGallery: "http://api.sebs.edu.np/api/gallery",
   deleteGallery: (id: number) =>
-    `http://161.129.67.102:30085/api/gallery/delete/${id}`,
-  addNews: "http://161.129.67.102:30085/api/news/add",
-  fetchNews: "http://161.129.67.102:30085/api/news",
+    `http://api.sebs.edu.np/api/gallery/delete/${id}`,
+  addNews: "http://api.sebs.edu.np/api/news/add",
+  fetchNews: "http://api.sebs.edu.np/api/news",
   deleteNews: (id: number) =>
-    `http://161.129.67.102:30085/api/news/delete/${id}`,
-  addfaculty: "http://161.129.67.102:30085/api/faculty/add",
-  fetchFaculty: "http://161.129.67.102:30085/api/faculty",
+    `http://api.sebs.edu.np/api/news/delete/${id}`,
+  addfaculty: "http://api.sebs.edu.np/api/faculty/add",
+  fetchFaculty: "http://api.sebs.edu.np/api/faculty",
   deleteFaculty: (id: number) =>
-    `http://161.129.67.102:30085/api/faculty/delete/${id}`,
+    `http://api.sebs.edu.np/api/faculty/delete/${id}`,
 };
