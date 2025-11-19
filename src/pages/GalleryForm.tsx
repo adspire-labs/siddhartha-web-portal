@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../apiEndpoint";
 import { useCheckAdminCredentials } from "@/components/CheckCred";
+import LogoutButton from "@/components/Logout";
 
 interface GalleryItem {
   id: number;
@@ -171,6 +172,9 @@ export default function GalleryUpload() {
 
   return (
     <div className="min-h-screen pt-20 pb-10 px-4">
+      <div className="flex justify-end">
+        <LogoutButton />
+      </div>
       {/* Lightbox - only for gallery display */}
       {lightboxOpen && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">

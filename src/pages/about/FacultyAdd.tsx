@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../../apiEndpoint";
 import { useCheckAdminCredentials } from "@/components/CheckCred";
+import LogoutButton from "@/components/Logout";
 
 interface FacultyMember {
   id: number;
@@ -180,6 +181,9 @@ export default function FacultyAdd() {
 
   return (
     <div className="mt-16 px-4 py-8 md:px-8 lg:px-16 xl:px-24 space-y-8">
+      <div className="flex justify-end">
+        <LogoutButton />
+      </div>
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold text-foreground">
           Faculty Management

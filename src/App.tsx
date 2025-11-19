@@ -75,7 +75,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
-                <Route path="/admin/forgot" element={<ForgotPassword />} />
+                {/* <Route path="/admin/forgot" element={<ForgotPassword />} /> */}
     
                 {/* About and its subpages */}
                 <Route path="/about" element={<About />} />

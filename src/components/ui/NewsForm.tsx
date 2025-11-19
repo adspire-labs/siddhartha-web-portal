@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { apiEndpoint } from "../../../apiEndpoint";
 import { useCheckAdminCredentials } from "../CheckCred";
+import LogoutButton from "../Logout";
 
 export interface NewsItem {
   id: number;
@@ -94,6 +95,9 @@ export const NewsForm = () => {
 
   return (
     <div className="max-w-3xl mx-auto my-12 md:my-20 space-y-12">
+      <div className="flex justify-end">
+        <LogoutButton />
+      </div>
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg p-8 sm:p-10 md:p-12 rounded-2xl space-y-6"

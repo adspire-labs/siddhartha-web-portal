@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ImageIcon, BellIcon, UsersIcon, ChevronRight } from "lucide-react";
+import LogoutButton from "../Logout";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24 p-6"> {/* Added pt-24 for top padding */}
+    <div className="flex justify-end"><LogoutButton/></div>
       <div className="max-w-6xl mx-auto">
         {/* Header - now properly spaced below nav */}
         <motion.header
