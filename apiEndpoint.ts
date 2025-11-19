@@ -1,8 +1,7 @@
 export const apiEndpoint = {
   addGallery: "https://api.sebs.edu.np/api/gallery/add",
   fetchGallery: "https://api.sebs.edu.np/api/gallery",
-  deleteGallery: (id: number) =>
-    `https://api.sebs.edu.np/api/gallery/delete/${id}`,
+  deleteGallery: (id: number) =>`https://api.sebs.edu.np/api/gallery/delete/${id}`,
   addNews: "https://api.sebs.edu.np/api/news/add",
   fetchNews: "https://api.sebs.edu.np/api/news",
   deleteNews: (id: number) =>
