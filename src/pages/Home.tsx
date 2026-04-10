@@ -436,7 +436,7 @@ export default function Home() {
               
 <div className="aspect-video w-full">
   <iframe
-    src="https://www.youtube.com/embed/akoimWQg4V8?si=prbxWecHwSbcpIVm&autoplay=1"
+    src="https://www.youtube.com/embed/UeukPZX9DFc?si=yourValue&autoplay=1"
     title="School Tour - Siddhartha School"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerPolicy="strict-origin-when-cross-origin"
