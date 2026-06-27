@@ -12,9 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UserPlus, Trash2 } from "lucide-react";
+import { UserPlus, Trash2, X, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import { apiEndpoint } from "../../../apiEndpoint";
 import { useCheckAdminCredentials } from "@/components/CheckCred";
 import LogoutButton from "@/components/Logout";
@@ -42,7 +41,6 @@ interface FacultyApiResponse {
 export default function FacultyAdd() {
   useCheckAdminCredentials();
 
-  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -54,6 +52,7 @@ export default function FacultyAdd() {
     phone: "",
     department: "",
   });
+  const [editingFacultyId, setEditingFacultyId] = useState<number | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +65,25 @@ export default function FacultyAdd() {
     "Science",
     "Administration",
   ];
+
+  const emptyFacultyForm = {
+    name: "",
+    position: "",
+    qualification: "",
+    experience: "",
+    specializations: "",
+    email: "",
+    phone: "",
+    department: "",
+  };
+
+  const resetForm = () => {
+    setFormData(emptyFacultyForm);
+    setEditingFacultyId(null);
+    setSelectedFile(null);
+    setPreviewUrl("");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -87,7 +105,7 @@ export default function FacultyAdd() {
       return;
     }
 
-    if (!selectedFile) {
+    if (!editingFacultyId && !selectedFile) {
       toast({
         title: "Missing Photo",
         description: "Please upload a profile photo.",
@@ -102,36 +120,34 @@ export default function FacultyAdd() {
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
-    data.append("photo", selectedFile);
+    if (selectedFile) {
+      data.append("photo", selectedFile);
+    }
 
     try {
-      const res = await axios.post(apiEndpoint.addfaculty, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const res = editingFacultyId
+        ? await axios.patch(apiEndpoint.updateFaculty(editingFacultyId), data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+        : await axios.post(apiEndpoint.addfaculty, data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
 
       if (res.status === 200 || res.status === 201) {
-        navigate("/about/faculty");
         toast({
           title: "Success",
           description:
-            res.data?.message || "Faculty member added successfully.",
+            res.data?.message ||
+            (editingFacultyId
+              ? "Faculty member updated successfully."
+              : "Faculty member added successfully."),
         });
 
-        setFormData({
-          name: "",
-          position: "",
-          qualification: "",
-          experience: "",
-          specializations: "",
-          email: "",
-          phone: "",
-          department: "",
-        });
-        setSelectedFile(null);
-        setPreviewUrl("");
-        if (fileInputRef.current) fileInputRef.current.value = "";
+        resetForm();
         fetchFaculty();
       } else {
         throw new Error(res.data?.message || "Unexpected server response.");
@@ -175,6 +191,24 @@ export default function FacultyAdd() {
     }
   };
 
+  const handleEdit = (faculty: FacultyMember) => {
+    setEditingFacultyId(faculty.id);
+    setFormData({
+      name: faculty.name || "",
+      position: faculty.position || "",
+      qualification: faculty.qualification || "",
+      experience: faculty.experience || "",
+      specializations: faculty.specializations || "",
+      email: faculty.email || "",
+      phone: faculty.phone || "",
+      department: faculty.department || "",
+    });
+    setSelectedFile(null);
+    setPreviewUrl(faculty.photo || "");
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     fetchFaculty();
   }, []);
@@ -186,9 +220,11 @@ export default function FacultyAdd() {
       </div>
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-bold text-foreground">
-          Faculty Management
+          {editingFacultyId ? "Update Faculty Member" : "Faculty Management"}
         </h2>
-        <p className="text-muted-foreground">Add a new faculty member</p>
+        <p className="text-muted-foreground">
+          {editingFacultyId ? "Edit the selected faculty profile" : "Add a new faculty member"}
+        </p>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -272,7 +308,7 @@ export default function FacultyAdd() {
                   onValueChange={(value) =>
                     setFormData({ ...formData, department: value })
                   }
-                  defaultValue={formData.department}
+                  value={formData.department}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select department" />
@@ -287,7 +323,7 @@ export default function FacultyAdd() {
                 </Select>
               </div>
               <div>
-                <Label>Photo</Label>
+                <Label>{editingFacultyId ? "Replace Photo" : "Photo"}</Label>
                 <Input
                   type="file"
                   accept="image/*"
@@ -312,15 +348,27 @@ export default function FacultyAdd() {
               {isSubmitting ? (
                 <>
                   <UserPlus className="w-4 h-4 mr-2 animate-spin" />
-                  Adding...
+                  {editingFacultyId ? "Updating..." : "Adding..."}
                 </>
               ) : (
                 <>
                   <UserPlus className="w-4 h-4 mr-2" />
-                  Add Faculty Member
+                  {editingFacultyId ? "Update Faculty Member" : "Add Faculty Member"}
                 </>
               )}
             </Button>
+            {editingFacultyId && (
+              <Button
+                type="button"
+                variant="outline"
+                onClick={resetForm}
+                className="w-full"
+                size="lg"
+              >
+                <X className="w-4 h-4 mr-2" />
+                Cancel Update
+              </Button>
+            )}
           </CardContent>
         </Card>
       </form>
@@ -348,13 +396,22 @@ export default function FacultyAdd() {
                     <p className="text-sm">{faculty.email}</p>
                   </div>
                 </div>
-                <Button
-                  onClick={() => handleDelete(faculty.id)}
-                  variant="destructive"
-                  className="mt-4 w-full"
-                >
-                  <Trash2 className="w-4 h-4 mr-2" /> Delete
-                </Button>
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  <Button
+                    onClick={() => handleEdit(faculty)}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Pencil className="w-4 h-4 mr-2" /> Edit
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(faculty.id)}
+                    variant="destructive"
+                    className="w-full"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" /> Delete
+                  </Button>
+                </div>
               </Card>
             ))}
           </div>

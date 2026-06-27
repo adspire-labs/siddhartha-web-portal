@@ -11,6 +11,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  Pencil,
 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
@@ -36,6 +37,7 @@ export default function GalleryUpload() {
     title: "",
     description: "",
   });
+  const [editingGalleryId, setEditingGalleryId] = useState<number | null>(null);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -63,6 +65,14 @@ export default function GalleryUpload() {
     fetchGallery();
   }, []);
 
+  const resetForm = () => {
+    setFormData({ title: "", description: "" });
+    setEditingGalleryId(null);
+    setSelectedFiles([]);
+    setPreviewUrls([]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   // Handle multiple file selection
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -79,35 +89,49 @@ export default function GalleryUpload() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (selectedFiles.length === 0 || !formData.title.trim()) {
-      toast.error("Please provide a title and select at least one image.");
+    if (!formData.title.trim()) {
+      toast.error("Please provide a title.");
+      return;
+    }
+
+    if (!editingGalleryId && selectedFiles.length === 0) {
+      toast.error("Please select at least one image.");
       return;
     }
 
     setIsUploading(true);
 
     try {
-      const uploadPromises = selectedFiles.map((file) => {
+      if (editingGalleryId) {
         const form = new FormData();
         form.append("title", formData.title);
         form.append("description", formData.description);
-        form.append("photo", file);
-        return axios.post(apiEndpoint.addGallery, form, {
+        if (selectedFiles[0]) {
+          form.append("photo", selectedFiles[0]);
+        }
+
+        await axios.patch(apiEndpoint.updateGallery(editingGalleryId), form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-      });
+        toast.success("Gallery image updated successfully!");
+      } else {
+        const uploadPromises = selectedFiles.map((file) => {
+          const form = new FormData();
+          form.append("title", formData.title);
+          form.append("description", formData.description);
+          form.append("photo", file);
+          return axios.post(apiEndpoint.addGallery, form, {
+            headers: { "Content-Type": "multipart/form-data" },
+          });
+        });
 
-      await Promise.all(uploadPromises);
-      toast.success(`${selectedFiles.length} image(s) uploaded successfully!`);
+        await Promise.all(uploadPromises);
+        toast.success(`${selectedFiles.length} image(s) uploaded successfully!`);
+      }
       fetchGallery();
-
-      // Reset form
-      setFormData({ title: "", description: "" });
-      setSelectedFiles([]);
-      setPreviewUrls([]);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      resetForm();
     } catch (error) {
-      toast.error("Upload failed. Please try again.");
+      toast.error(editingGalleryId ? "Update failed. Please try again." : "Upload failed. Please try again.");
       console.error(error);
     } finally {
       setIsUploading(false);
@@ -139,16 +163,19 @@ export default function GalleryUpload() {
     setPreviewUrls(newUrls);
   };
 
-  // Group gallery items by title (for display only)
-  const groupedGallery = galleryList.reduce((acc, item) => {
-    if (!acc[item.title]) {
-      acc[item.title] = [];
-    }
-    acc[item.title].push(item);
-    return acc;
-  }, {} as Record<string, GalleryItem[]>);
+  const handleEdit = (item: GalleryItem) => {
+    setEditingGalleryId(item.id);
+    setFormData({
+      title: item.title,
+      description: item.description || "",
+    });
+    setSelectedFiles([]);
+    setPreviewUrls([item.photo]);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-  const openLightbox = (title: string, index: number = 0) => {
+  const openLightbox = (index: number = 0) => {
     setCurrentImageIndex(index);
     setLightboxOpen(true);
   };
@@ -158,14 +185,13 @@ export default function GalleryUpload() {
   };
 
   const navigateLightbox = (direction: "prev" | "next") => {
-    const currentGroup = Object.values(groupedGallery).flat();
     if (direction === "prev") {
       setCurrentImageIndex((prev) =>
-        prev > 0 ? prev - 1 : currentGroup.length - 1
+        prev > 0 ? prev - 1 : galleryList.length - 1
       );
     } else {
       setCurrentImageIndex((prev) =>
-        prev < currentGroup.length - 1 ? prev + 1 : 0
+        prev < galleryList.length - 1 ? prev + 1 : 0
       );
     }
   };
@@ -176,7 +202,7 @@ export default function GalleryUpload() {
         <LogoutButton />
       </div>
       {/* Lightbox - only for gallery display */}
-      {lightboxOpen && (
+      {lightboxOpen && galleryList[currentImageIndex] && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
           <button
             onClick={closeLightbox}
@@ -187,10 +213,8 @@ export default function GalleryUpload() {
 
           <div className="relative max-w-4xl w-full">
             <img
-              src={
-                Object.values(groupedGallery).flat()[currentImageIndex].photo
-              }
-              alt="Gallery"
+              src={galleryList[currentImageIndex].photo}
+              alt={galleryList[currentImageIndex].title}
               className="max-h-[80vh] w-full object-contain"
             />
 
@@ -214,9 +238,13 @@ export default function GalleryUpload() {
 
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground">Gallery Upload</h2>
+          <h2 className="text-3xl font-bold text-foreground">
+            {editingGalleryId ? "Update Gallery Image" : "Gallery Upload"}
+          </h2>
           <p className="text-muted-foreground">
-            Upload and manage gallery images
+            {editingGalleryId
+              ? "Edit the selected image details"
+              : "Upload and manage gallery images"}
           </p>
         </div>
 
@@ -255,14 +283,14 @@ export default function GalleryUpload() {
                     />
                   </div>
                   <div>
-                    <Label>Select Images</Label>
+                    <Label>{editingGalleryId ? "Replace Image" : "Select Images"}</Label>
                     <Input
                       type="file"
                       accept="image/*"
-                      multiple
+                      multiple={!editingGalleryId}
                       ref={fileInputRef}
                       onChange={handleFileSelect}
-                      required
+                      required={!editingGalleryId}
                     />
                   </div>
                 </div>
@@ -280,13 +308,15 @@ export default function GalleryUpload() {
                             alt={`Preview ${index + 1}`}
                             className="w-full h-full object-cover"
                           />
-                          <button
-                            type="button"
-                            onClick={() => removePreviewImage(index)}
-                            className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
+                          {!editingGalleryId && (
+                            <button
+                              type="button"
+                              onClick={() => removePreviewImage(index)}
+                              className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <X className="w-3 h-3" />
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -303,32 +333,46 @@ export default function GalleryUpload() {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button
-                  type="submit"
-                  disabled={isUploading}
-                  className="w-full md:w-1/2"
-                  size="lg"
-                >
+                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-2/3">
+                  <Button
+                    type="submit"
+                    disabled={isUploading}
+                    className="w-full"
+                    size="lg"
+                  >
                   {isUploading ? (
                     <>
                       <Upload className="w-4 h-4 mr-2 animate-spin" />
-                      Uploading...
+                      {editingGalleryId ? "Updating..." : "Uploading..."}
                     </>
                   ) : (
                     <>
                       <Upload className="w-4 h-4 mr-2" />
-                      Upload Images
+                      {editingGalleryId ? "Update Image" : "Upload Images"}
                     </>
                   )}
-                </Button>
+                  </Button>
+                  {editingGalleryId && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={resetForm}
+                      className="w-full sm:w-auto"
+                      size="lg"
+                    >
+                      <X className="w-4 h-4" />
+                      Cancel
+                    </Button>
+                  )}
+                </div>
               </div>
             </form>
           </CardContent>
         </Card>
 
-        {/* Gallery Display - Grouped View */}
+        {/* Gallery Display */}
         <div>
-          <h3 className="text-2xl font-semibold mb-6">Gallery Collections</h3>
+          <h3 className="text-2xl font-semibold mb-6">Gallery Images</h3>
           {isLoading ? (
             <p className="text-center text-muted-foreground">
               Loading gallery...
@@ -339,43 +383,50 @@ export default function GalleryUpload() {
             </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {Object.entries(groupedGallery).map(([title, items]) => (
-                <Card key={title} className="hover:shadow-md transition-shadow">
+              {galleryList.map((item, index) => (
+                <Card key={item.id} className="hover:shadow-md transition-shadow">
                   <div
                     className="relative aspect-square overflow-hidden cursor-pointer"
-                    onClick={() => openLightbox(title)}
+                    onClick={() => openLightbox(index)}
                   >
                     <img
-                      src={items[0].photo}
-                      alt={title}
+                      src={item.photo}
+                      alt={item.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform"
                     />
-                    {items.length > 1 && (
-                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                        +{items.length - 1} more
-                      </div>
-                    )}
                   </div>
                   <div className="p-4">
-                    <h4 className="font-semibold">{title}</h4>
+                    <h4 className="font-semibold">{item.title}</h4>
                     <p className="text-sm text-muted-foreground line-clamp-2">
-                      {items[0].description}
+                      {item.description}
                     </p>
                     <div className="flex justify-between items-center mt-3">
                       <span className="text-xs text-muted-foreground">
-                        {new Date(items[0].createdAt).toLocaleDateString()}
+                        {new Date(item.createdAt).toLocaleDateString()}
                       </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(items[0].id);
-                        }}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEdit(item);
+                          }}
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-destructive hover:text-destructive"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(item.id);
+                          }}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </Card>

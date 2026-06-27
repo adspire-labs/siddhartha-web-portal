@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { apiEndpoint } from "../../../apiEndpoint";
 import { useCheckAdminCredentials } from "../CheckCred";
 import LogoutButton from "../Logout";
+import { Pencil, X } from "lucide-react";
 
 export interface NewsItem {
   id: number;
@@ -31,10 +32,20 @@ export const NewsForm = () => {
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
   const [featured, setFeatured] = useState(false);
+  const [editingNewsId, setEditingNewsId] = useState<number | null>(null);
 
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const resetForm = () => {
+    setTitle("");
+    setExcerpt("");
+    setCategory("");
+    setType("");
+    setFeatured(false);
+    setEditingNewsId(null);
+  };
 
   // Fetch news list from backend
   const fetchNews = async () => {
@@ -57,27 +68,37 @@ export const NewsForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(apiEndpoint.addNews, {
+      const payload = {
         title,
         excerpt,
         category,
         type,
         featured,
-      });
-      toast.success("News created");
-      // Reset form fields
-      setTitle("");
-      setExcerpt("");
-      setCategory("");
-      setType("");
-      setFeatured(false);
-      // Refresh list
+      };
+
+      if (editingNewsId) {
+        await axios.patch(apiEndpoint.updateNews(editingNewsId), payload);
+        toast.success("News updated");
+      } else {
+        await axios.post(apiEndpoint.addNews, payload);
+        toast.success("News created");
+      }
+
+      resetForm();
       fetchNews();
-      // Optionally navigate if you want to go to news page
-      // navigate("/news");
     } catch (err) {
-      toast.error("Failed to create news");
+      toast.error(editingNewsId ? "Failed to update news" : "Failed to create news");
     }
+  };
+
+  const handleEdit = (news: NewsItem) => {
+    setEditingNewsId(news.id);
+    setTitle(news.title);
+    setExcerpt(news.excerpt);
+    setCategory(news.category);
+    setType(news.type);
+    setFeatured(news.featured);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = async (id: number) => {
@@ -103,7 +124,7 @@ export const NewsForm = () => {
         className="bg-white shadow-lg p-8 sm:p-10 md:p-12 rounded-2xl space-y-6"
       >
         <h2 className="text-xl md:text-2xl font-semibold text-center">
-          Add News or Notice
+          {editingNewsId ? "Update News or Notice" : "Add News or Notice"}
         </h2>
 
         <input
@@ -156,9 +177,22 @@ export const NewsForm = () => {
           <span className="text-sm sm:text-base">Mark as Featured</span>
         </label>
 
-        <Button type="submit" className="w-full py-3 text-lg">
-          Submit News
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button type="submit" className="w-full py-3 text-lg">
+            {editingNewsId ? "Update News" : "Submit News"}
+          </Button>
+          {editingNewsId && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={resetForm}
+              className="w-full sm:w-auto py-3 text-lg"
+            >
+              <X className="w-4 h-4" />
+              Cancel
+            </Button>
+          )}
+        </div>
       </form>
 
       {/* News List */}
@@ -192,14 +226,23 @@ export const NewsForm = () => {
                     )}
                   </p>
                 </div>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(news.id)}
-                  className="mt-4 md:mt-0"
-                >
-                  Delete
-                </Button>
+                <div className="flex gap-2 mt-4 md:mt-0">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleEdit(news)}
+                  >
+                    <Pencil className="w-4 h-4" />
+                    Edit
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDelete(news.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               </div>
             ))}
           </div>
